@@ -60,6 +60,33 @@
                                             <input type="date" name="birthday" id="birthday" class="form-control">
                                         </div>
                                     </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-8">
+                                            <label for="School" class="fw-bold">School <span class="text-danger">*</span></label>
+                                            <input type="text" name="school" class="form-control" placeholder="ex,">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-4">
+                                            <label for="Grade" class="fw-bold">Grade <span class="text-danger">*</span></label>
+                                            <select name="Grade" id="grade" class="form-control">
+                                                <option value="">Select Grade</option>
+                                                <option value="Grade 1">Grade 1</option>
+                                                <option value="Grade 2">Grade 2</option>
+                                                <option value="Grade 3">Grade 3</option>
+                                                <option value="Grade 4">Grade 4</option>
+                                                <option value="Grade 5">Grade 5</option>
+                                                <option value="Grade 6">Grade 6</option>
+                                                <option value="Grade 7">Grade 7</option>
+                                                <option value="Grade 8">Grade 8</option>
+                                                <option value="Grade 9">Grade 9</option>
+                                                <option value="Grade 10">Grade 10</option>
+                                                <option value="Grade 11">Grade 11</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -80,11 +107,13 @@
 
                                         <div class="col-4">
                                             <label for="Email" class="Fw-bold">E-mail <span
-                                                    class="text danger">*</span></label>
+                                                    class="text-danger">*</span></label>
                                             <input type="email" name="Email" id="Email" class="form-control"
                                                 placeholder="ex, abc@mail.com">
                                         </div>
                                     </div>
+
+                                    
                                 </div>
 
 
