@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/student-registration', function () {
     return view('StudentRegistration');
 });
+
+Route::get('/teacher-registration', function () {
+    return view('TeacherRegistration');
+});
