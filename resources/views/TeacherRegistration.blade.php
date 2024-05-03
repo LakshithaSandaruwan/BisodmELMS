@@ -80,6 +80,13 @@
                                     </div>
 
                                     <div class="row mt-3">
+                                        <div class="col-4">
+                                            <label for="T_NIC" class="fw-bold">NIC Number <span class="text-danger">*</span></label>
+                                            <input type="text" name="T_NIC" id="T_NIC" class="form-control" placeholder="ex, 199734503580">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
                                         <div class="col-10">
                                             <label for="study qulification" class="fw-bold">Study Qulification </label>
                                             <input type="text" name="study_qulification" id="study_qulification" class="form-control" placeholder="ex, Rajarata University Management Degree">
@@ -110,6 +117,31 @@
                                         <div class="col-3">
                                             <label for="T_housenumber" class="fw">House Number</label>
                                             <input type="text" name="T_housenumber" id="T_housenumber" placeholder="ex, 215/A">
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="T_streetaddress" class="fw">Street Address <span class="text-danger">*</span></label>
+                                            <input type="text" name="T_streetaddress" id="T_streetaddress" class="form-control" placeholder="ex, Oruthota Road">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-4">
+                                            <label for="T_district" class="fw-bold">District <span class="text-danger">*</span></label>
+                                            <input type="text" name="T_district" id="T_district" class="form-control" placeholder="ex, Gampaha">
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="T_province" class="fw-bold">Province <span class="text-danger">*</span></label>
+                                            <select name="T_province" id="T_province" class="form-control">
+                                                <option value="">Select Province</option>
+                                                <option value="Central Province">Central Province</option>
+                                                <option value="Eastern Province">Eastern Province</option>
+                                                <option value="North Central Province">North Central Province</option>
+                                                <option value="Northern Province">Northern Province</option>
+                                                <option value="North Western Province">North Western Province</option>
+                                                <option value="Sabaragamuwa Province">Sabaragamuwa Province</option>
+                                                <option value="Southern Province">Southern Province</option>
+                                                <option value="Uva Province">Uva Province</option>
+                                                <option value="Western Province">Western Province</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
