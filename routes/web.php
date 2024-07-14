@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,6 @@ Route::get('/student-registration', function () {
 Route::get('/teacher-registration', function () {
     return view('TeacherRegistration');
 });
+
+//student routes
+Route::post('/SaveStudent', [StudentController::class, 'Register']);
