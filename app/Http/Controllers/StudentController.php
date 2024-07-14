@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
     //
-    public function Register(Request $request){
+    public function Register(Request $request)
+    {
         $request->validate([
             'Initial' => 'required|string|max:255',
             'LastName' => 'required|string|max:255',
