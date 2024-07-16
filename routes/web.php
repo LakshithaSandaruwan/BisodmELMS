@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\GradeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 
 /*
@@ -34,3 +37,31 @@ Route::post('/SaveStudent', [StudentController::class, 'Register']);
 Route::post('/teacherRegistration', [TeacherController::class, 'Register']);
 
 
+
+Auth::routes();
+Auth::routes(['verify' => true]);
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//admin
+Route::get('/admin', function () {
+    return view('Admin.Dashboard');
+});
+
+Route::get('/teacher', function () {
+    return view('Admin.Teacher');
+});
+
+Route::get('/subject', [SubjectController::class, 'View']);
+
+Route::post('/savesubject', [SubjectController::class, 'Save']);
+
+Route::get('/grades', [GradeController::class, 'View']);
+
+Route::post('/savegrade', [GradeController::class, 'Save']);
+
+Route::get('/setsubjects', [SubjectController::class, 'SubjectMapping']);
+
+Route::post('/subjectmapping', [SubjectController::class, 'SaveSubjectMapping']);
+
+Route::get('/subject-mappings/filter', [SubjectController::class, 'filter'])->name('subject-mappings.filter');
