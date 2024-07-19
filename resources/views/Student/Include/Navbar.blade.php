@@ -17,7 +17,7 @@
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                 <a href="#" class="dropdown-item">
                     <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="{{ asset('img/user.jpg') }}" alt=""
+                        <img class="rounded-circle" src="img/user.jpg" alt=""
                             style="width: 40px; height: 40px;">
                         <div class="ms-2">
                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
@@ -28,8 +28,8 @@
                 <hr class="dropdown-divider">
                 <a href="#" class="dropdown-item">
                     <div class="d-flex align-items-center">
-                        <img class="rounded-circle" src="{{ asset('img/user.jpg') }}" alt="" style="width: 40px; height: 40px;">
-
+                        <img class="rounded-circle" src="img/user.jpg" alt=""
+                            style="width: 40px; height: 40px;">
                         <div class="ms-2">
                             <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                             <small>15 minutes ago</small>

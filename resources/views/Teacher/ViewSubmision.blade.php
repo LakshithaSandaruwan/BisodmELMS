@@ -43,12 +43,12 @@
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        <div id="spinner"
+        {{-- <div id="spinner"
             class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                 <span class="sr-only">Loading...</span>
             </div>
-        </div>
+        </div> --}}
 
         <div class="sidebar pe-4 pb-3">
             @include('Teacher.Include.Sidebar')
@@ -78,47 +78,37 @@
                         @endif
                         <div class="overflow-hidden card table-nowrap table-card">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Homeworks</h5>
+                                <h5 class="mb-0">Submissions</h5>
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0">
                                     <thead class="small text-uppercase bg-body text-muted">
                                         <tr>
-                                            <th>Batch</th>
-                                            <th>Subject</th>
-                                            <th>File</th>
-                                            <th>Deadline</th>
-                                            <th>Submitions</th>
-                                            <th class="text-end">Action</th>
+                                            <th>Student Id</th>
+                                            <th>Student name</th>
+                                            <th>Submision File</th>
+                                            <th>Result (%)</th>
+                                            <th class="">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($homeworks as $homework)
+                                        @foreach ($homeworkSubmisions as $homeworkSubmision)
                                             <tr class="align-middle">
                                                 <td>
                                                     <div class="d-flex align-items-center">
                                                         <div>
-                                                            <div class="h6 mb-0 lh-1">{{ $homework->batch_name }}</div>
+                                                            <div class="h6 mb-0 lh-1">{{ $homeworkSubmision->stId }}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>Grade {{ $homework->grade_name }} {{ $homework->subject_name }}</td>
-                                                <td> <span
-                                                        class="d-inline-block align-middle"><a href="{{ $homework->file_path }}">Download</a></span>
+                                                <td> {{ $homeworkSubmision->full_name }} </td>
+                                                <td> <span class="d-inline-block align-middle"><a
+                                                            href="{{ $homeworkSubmision->filename }}">Download</a></span>
                                                 </td>
-                                                <td> {{ $homework->deadline }} </td>
-                                                <td> <a href="viewhomeworksubmision/{{$homework->id}}">{{ $homework->submissions_count }}</a> </td>
-                                                <td class="text-end">
-                                                    <div class="drodown">
-                                                        <a data-bs-toggle="dropdown" href="#" class="btn p-1"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-bars" aria-hidden="true"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a href="#" class="dropdown-item">Edit</a>
-                                                            <a href="#" class="dropdown-item">Remove</a>
-                                                        </div>
-                                                    </div>
+                                                <td>{{ $homeworkSubmision->results }}</td>
+                                                <td> <a href="#" data-bs-toggle="modal" data-bs-target="#results"
+                                                        data-subject-id="{{ $homeworkSubmision->id }}">Add Results</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -131,9 +121,49 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="results" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="/AddResults" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <label for="Results" class="form-label mt-4">Results<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="Results" class="form-control" id="Results"
+                                aria-describedby="Results" required>
+
+                            <input type="hidden" name="id" class="form-control" id="id"
+                                aria-describedby="id" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var homeworkModal = document.getElementById('results');
+            homeworkModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var subjectId = button.getAttribute(
+                    'data-subject-id');
+                var modal = homeworkModal;
+                modal.querySelector('#id').value = subjectId;
+            });
+        });
+    </script>
 
     @include('CDNs.AdminJS')
 </body>

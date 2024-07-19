@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Homework;
+use App\Models\HomeworkSubmition;
 use Illuminate\Http\Request;
 use App\Models\SubjectMapping;
+use App\Models\ZoomLink;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,29 +63,70 @@ class ClassController extends Controller
         // $teacherId = Auth::id();
         $teacherId = 1;
         $currentDate = now();
-        // $homeworks = DB::table('homework')
-        //     ->join('subject_mappings', 'homework.subject_id', '=', 'subject_mappings.id')
-        //     ->where('subject_mappings.teacher_id', $teacherId)
-        //     ->where('subject_mappings.IsEnd', false)
-        //     ->select('homework.*', 'subject_mappings.subject_id as mapped_subject_id', 'subject_mappings.grade_id', 'subject_mappings.teacher_id')
-        //     ->get();
 
-        $homeworks = DB::table('homework')
+        $homeworks = Homework::select('homework.*', 'subjects.subject_name as subject_name', 'grades.Grade as grade_name', 'batches.Year as batch_name')
             ->join('subject_mappings', 'homework.subject_id', '=', 'subject_mappings.id')
             ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
             ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
             ->join('batches', 'subject_mappings.batchId', '=', 'batches.id')
             ->where('subject_mappings.teacher_id', $teacherId)
             ->where('homework.deadline', '>=', $currentDate)
-            ->select(
-                'homework.*',
-                'subjects.subject_name as subject_name',
-                'grades.Grade as grade_name',
-                'batches.Year as batch_name'
-            )
+            ->withCount('submissions') // Add this to get the count of submissions
             ->get();
 
-
         return view('Teacher.Homework', compact('homeworks'));
+    }
+
+    public function ViewHomeworkSubmisions($id)
+    {
+        $homeworkSubmisions = DB::table('homework_submitions')
+            ->join('students', 'homework_submitions.student_id', '=', 'students.id')
+            ->select(
+                'homework_submitions.Submision_file_path as filename',
+                'homework_submitions.results as results',
+                'homework_submitions.id as id',
+                'students.FullName as full_name',
+                'students.id as stId'
+            )
+            ->where('homework_submitions.homework_id', $id)
+            ->get();
+
+        return view('Teacher.ViewSubmision', compact('homeworkSubmisions'));
+    }
+
+    public function AddResults(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:homework_submitions,id',
+            'Results' => 'required|string'
+        ]);
+
+        $submission = HomeworkSubmition::findOrFail($request->input('id'));
+
+        // Update the results column
+        $submission->results = $request->input('Results');
+        $submission->save();
+
+        return redirect()->back()->with('success', 'Results updated successfully');
+    }
+
+    public function Savelink(Request $request){
+        $request->validate([
+            'subject_id' => 'required|integer',
+            'link' => 'required|string',
+            'Day' => 'required|string',
+            'stime' => 'required',
+            'etime' => 'required',
+        ]);
+
+        $zoomlink = new ZoomLink();
+        $zoomlink->Links = $request->input('link');
+        $zoomlink->subject_id = $request->input('subject_id');
+        $zoomlink->day = $request->input('Day');
+        $zoomlink->StartTime = $request->input('stime');
+        $zoomlink->EndTime = $request->input('etime');
+        $zoomlink->save();
+
+        return redirect()->back()->with('success', 'Zoom link updated successfully');
     }
 }

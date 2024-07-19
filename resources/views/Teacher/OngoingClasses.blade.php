@@ -116,7 +116,9 @@
                                                                 data-bs-target="#homeworkmodel" class="dropdown-item"
                                                                 data-subject-id="{{ $class->id }}">Add Homeworks</a>
 
-                                                            <a href="#" class="dropdown-item">Add Zoom classes
+                                                            <a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#zoomlink" class="dropdown-item"
+                                                                data-link-id="{{ $class->id }}">Add Zoom classes
                                                                 links</a>
                                                         </div>
                                                     </div>
@@ -163,9 +165,75 @@
             </div>
         </div>
 
+        <div class="modal fade" id="zoomlink" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add zoom links</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <form action="savelink" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" id="subject-id" name="subject_id">
+
+                            <label for="link" class="form-label mt-4">Link<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="link" class="form-control" id="link"
+                                aria-describedby="link" required>
+
+                            <label for="Day" class="form-label mt-2">Day<span
+                                    class="text-danger">*</span></label>
+                            <select name="Day" class="form-control" id="Day" aria-describedby="Day"
+                                required>
+                                <option value="">Select a day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+
+                            <label for="stime" class="form-label mt-2">Start time<span
+                                    class="text-danger">*</span></label>
+                            <input type="time" name="stime" class="form-control" id="stime"
+                                aria-describedby="stime" required>
+
+                            <label for="etime" class="form-label mt-2">End Time<span
+                                    class="text-danger">*</span></label>
+                            <input type="time" name="etime" class="form-control" id="etime"
+                                aria-describedby="etime" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var homeworkModal = document.getElementById('zoomlink');
+            homeworkModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var subjectId = button.getAttribute(
+                    'data-link-id');
+                var modal = homeworkModal;
+                modal.querySelector('#subject-id').value = subjectId;
+            });
+        });
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var homeworkModal = document.getElementById('homeworkmodel');

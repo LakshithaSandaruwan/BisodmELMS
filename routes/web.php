@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\GradeController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\EnrollmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,4 +84,22 @@ Route::get('/ongoingclasses', [ClassController::class, 'ViewClasses']);
 Route::post('/savehomeworks', [ClassController::class, 'savehomework']);
 
 Route::get('/homeworks', [ClassController::class, 'ViewHomeworks']);
+
+Route::get('/viewhomeworksubmision/{id}', [ClassController::class, 'ViewHomeworkSubmisions']);
+
+Route::post('/AddResults', [ClassController::class, 'AddResults']);
+
+Route::post('/savelink', [ClassController::class, 'Savelink']);
+
+//student
+Route::get('/student', function () {
+    return view('Student.Dashboard');
+});
+
+Route::get('/enrollment', [EnrollmentController::class, 'ViewNewEnrolment']);
+
+Route::get('/subjects-by-grade/{gradeId}/{batchId}', [EnrollmentController::class, 'getSubjectsByGrade']);
+
+Route::post('/saveenrolment', [EnrollmentController::class, 'SaveEnrolment']);
+
 

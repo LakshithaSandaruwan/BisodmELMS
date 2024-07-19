@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Homework extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['file_path', 'deadline', 'subject_id'];
+
+    public function submissions()
+    {
+        return $this->hasMany(HomeworkSubmition::class, 'homework_id', 'id');
+    }
 }
