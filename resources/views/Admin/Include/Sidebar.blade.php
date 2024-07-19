@@ -25,7 +25,7 @@
         </div>
 
         <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students</a>
-        <a href="subject" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Subjects</a>
+        <a href="batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Batches</a>
         <a href="grades" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Grades</a>
 
         <div class="nav-item dropdown">

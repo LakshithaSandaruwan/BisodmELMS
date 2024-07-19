@@ -54,6 +54,18 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="col-md-4">
+                                            <label for="batch" class="form-label">Batch<span
+                                                    class="text-danger">*</span></label>
+                                            <select name="batch" id="batch" class="form-control" required>
+                                                <option value="">Select batch</option>
+                                                @foreach ($batches as $batche)
+                                                    <option value="{{ $batche->id }}"> {{ $batche->Year }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4">
                                             <label for="gradename" class="form-label">Grade<span
                                                     class="text-danger">*</span></label>
                                             <select name="grade" id="grade" class="form-control" required>
@@ -102,6 +114,15 @@
                             <h6 class="mb-4">All Subjects</h6>
                             <div class="row">
                                 <div class="col-md-4">
+                                    <select name="filterBatch" id="filterBatch" class="form-control" required>
+                                        <option value="">Select batch</option>
+                                        @foreach ($batches as $batche)
+                                            <option value="{{ $batche->id }}"> {{ $batche->Year }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
                                     <select name="Grade" id="Grade" class="form-control">
                                         <option value="">Filter with grade</option>
                                         @foreach ($grades as $grade)
@@ -114,6 +135,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
+                                        <th scope="col">Year</th>
                                         <th scope="col">Grade</th>
                                         <th scope="col">Subject</th>
                                         <th scope="col">Teacher</th>
@@ -135,23 +157,26 @@
         $(document).ready(function() {
             $('#Grade').on('change', function() {
                 var gradeId = $(this).val();
-                
+                var batchId = $('#filterBatch').val();
+
                 $.ajax({
                     url: "{{ route('subject-mappings.filter') }}",
                     method: 'GET',
                     data: {
-                        grade_id: gradeId
+                        grade_id: gradeId,
+                        batch_id: batchId
                     },
                     success: function(response) {
                         var tbody = $('#subject-mappings-tbody');
                         tbody.empty();
                         $.each(response, function(index, mapping) {
                             var row = `<tr>
-                                <th scope="row">${mapping.id}</th>
-                                <td>Grade ${mapping.grade_name}</td>
-                                <td>${mapping.subject_name}</td>
-                                <td>${mapping.teacher_name}</td>
-                            </tr>`;
+                        <th scope="row">${mapping.id}</th>
+                        <td>${mapping.batch_name}</td>
+                        <td>Grade ${mapping.grade_name}</td>
+                        <td>${mapping.subject_name}</td>
+                        <td>${mapping.teacher_name}</td>
+                    </tr>`;
                             tbody.append(row);
                         });
                     }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BatchController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\GradeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -65,3 +67,20 @@ Route::get('/setsubjects', [SubjectController::class, 'SubjectMapping']);
 Route::post('/subjectmapping', [SubjectController::class, 'SaveSubjectMapping']);
 
 Route::get('/subject-mappings/filter', [SubjectController::class, 'filter'])->name('subject-mappings.filter');
+
+Route::get('/batch', [BatchController::class, 'view']);
+
+Route::post('/savebatch', [BatchController::class, 'Save']);
+
+
+//teacher
+Route::get('/teacher', function () {
+    return view('Teacher.Dashboard');
+});
+
+Route::get('/ongoingclasses', [ClassController::class, 'ViewClasses']);
+
+Route::post('/savehomeworks', [ClassController::class, 'savehomework']);
+
+Route::get('/homeworks', [ClassController::class, 'ViewHomeworks']);
+
