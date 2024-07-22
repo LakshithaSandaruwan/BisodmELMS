@@ -40,6 +40,12 @@
                                     </div>
                                 @endif
 
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+
                                 <!-- Validation Errors -->
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -98,7 +104,64 @@
                 <div class="row mt-5">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">My Enrolments</h6>
+                            <div class="overflow-hidden card table-nowrap table-card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-4">My Enrolments</h6>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead class="small text-uppercase bg-body text-muted">
+                                            <tr>
+                                                <th>Subject</th>
+                                                <th>Zoom Link</th>
+                                                <th>Day</th>
+                                                <th>Time</th>
+                                                <th>Next Payment</th>
+                                                <th>Payment Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($enrolmentDetails as $enrolmentDetail)
+                                                <tr class="align-middle">
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div>
+                                                                <div class="h6 mb-0 lh-1">
+                                                                    {{ $enrolmentDetail->subject_name }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @if ($enrolmentDetail->days_remaining < -5)
+                                                            <a class="disabled" href="#"><b><span
+                                                                        class="badge bg-danger">Suspend</span></b></a>
+                                                        @else
+                                                            <a href="{{ $enrolmentDetail->zoom_link }}"><b>Click To
+                                                                    Join</b></a>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $enrolmentDetail->day }} </td>
+                                                    <td>{{ $enrolmentDetail->stime }} - {{ $enrolmentDetail->etime }}
+                                                    </td>
+                                                    <td> {{ $enrolmentDetail->Next_Payment_Date }}</td>
+                                                    <td>
+                                                        @if ($enrolmentDetail->days_remaining < 0)
+                                                            <p class="text-danger fw-bold">Overdue by
+                                                                {{ abs($enrolmentDetail->days_remaining) }} days.<br>
+                                                                Click <a href="/payment">Here</a> to payment</p>
+                                                        @else
+                                                            <p class="text-success fw-bold">
+                                                                {{ $enrolmentDetail->days_remaining }} days remaining
+                                                            </p>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

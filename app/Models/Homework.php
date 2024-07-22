@@ -15,4 +15,9 @@ class Homework extends Model
     {
         return $this->hasMany(HomeworkSubmition::class, 'homework_id', 'id');
     }
+
+    public function subject()
+    {
+        return $this->belongsTo(SubjectMapping::class, 'subject_id');
+    }
 }

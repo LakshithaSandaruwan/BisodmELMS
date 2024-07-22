@@ -9,6 +9,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\MyClassesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,5 +102,7 @@ Route::get('/enrollment', [EnrollmentController::class, 'ViewNewEnrolment']);
 Route::get('/subjects-by-grade/{gradeId}/{batchId}', [EnrollmentController::class, 'getSubjectsByGrade']);
 
 Route::post('/saveenrolment', [EnrollmentController::class, 'SaveEnrolment']);
+
+Route::get('/myclasses', [MyClassesController::class, 'ViewClasses']);
 
 

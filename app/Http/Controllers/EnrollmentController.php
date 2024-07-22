@@ -3,21 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Batch;
-use App\Models\Enrollment;
 use App\Models\Grade;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use App\Models\SubjectMapping;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class EnrollmentController extends Controller
 {
     //
     public function ViewNewEnrolment()
     {
+        // $studentId = Auth::id();
+        $studentId = 1;
         $batches = Batch::where('IsStillEnrolling', true)->get();
         $grades = Grade::all();
 
-        return view('Student.Enrolling', compact('batches', 'grades'));
+        $enrolmentDetails = Enrollment::join('subject_mappings', 'enrollments.subject_id', '=', 'subject_mappings.id')
+            ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
+            ->leftJoin('zoom_links', 'subject_mappings.id', '=', 'zoom_links.subject_id')
+            ->where('enrollments.student_id', $studentId)
+            ->select(
+                'subjects.subject_name',
+                'zoom_links.Links as zoom_link',
+                'zoom_links.day as day',
+                'zoom_links.StartTime as stime',
+                'zoom_links.EndTime as etime',
+                'enrollments.*',
+                DB::raw('DATEDIFF(enrollments.Next_Payment_Date, CURDATE()) as days_remaining')
+            )
+            ->get();
+
+
+        // dd($enrolmentDetails);
+
+        return view('Student.Enrolling', compact('batches', 'grades', 'enrolmentDetails'));
     }
 
     public function getSubjectsByGrade($gradeId, $batchid)
@@ -38,10 +59,25 @@ class EnrollmentController extends Controller
         return response()->json($subjects);
     }
 
-    public function SaveEnrolment(Request $request){
+    public function SaveEnrolment(Request $request)
+    {
         $request->validate([
             'subject' => 'required'
         ]);
+
+        $subjectId = $request->input('subject');
+        // $studentId = Auth::id();
+        $studentId = 1;
+
+        $enrolmentDetails = Enrollment::where('subject_id', $subjectId)
+            ->where('student_id', $studentId)
+            ->get();
+
+        // dd($enrolmentDetails);
+
+        if ($enrolmentDetails->count() > 0) {
+            return redirect()->back()->with('error', 'You have already enrolled to this subject!');
+        }
 
         $enrolment = new Enrollment();
         $enrolment->subject_id = $request->input('subject');

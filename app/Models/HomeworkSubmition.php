@@ -15,4 +15,19 @@ class HomeworkSubmition extends Model
     {
         return $this->belongsTo(Homework::class, 'homework_id', 'id');
     }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(SubjectMapping::class, 'subject_id');
+    }
+
+    public function homeworks()
+    {
+        return $this->belongsTo(Homework::class, 'homework_id');
+    }
 }
