@@ -19,7 +19,7 @@
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user-plus"
                     aria-hidden="true"></i>Teacher</a>
             <div class="dropdown-menu bg-transparent border-0">
-                <a href="/teacher" class="dropdown-item">Registration</a>
+                <a href="/teacherregistration" class="dropdown-item">Registration</a>
                 <a href="typography.html" class="dropdown-item">All teachers</a>
             </div>
         </div>

@@ -17,6 +17,6 @@
         <a href="/teacher" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <a href="/ongoingclasses" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Ongoing Classes</a>
         <a href="/homeworks" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Homeworks</a>
-        <a href="/batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Calander</a>
+        <a href="/batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Quizes</a>
     </div>
 </nav>

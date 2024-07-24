@@ -18,7 +18,9 @@
         
         <a href="/enrollment" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Enrollements</a>
 
-        <a href="/myclasses" class="nav-item nav-link"><i class="fa fa-th me-2"></i>My Classes</a>
+        <a href="/myhomeworks" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Homeworks</a>
+
+        <a href="/take-quiz" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Quizes</a>
        
     </div>
 </nav>

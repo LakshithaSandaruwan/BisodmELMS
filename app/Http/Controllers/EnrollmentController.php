@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use App\Models\Grade;
+use App\Models\Student;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use App\Models\SubjectMapping;
@@ -16,7 +17,9 @@ class EnrollmentController extends Controller
     public function ViewNewEnrolment()
     {
         // $studentId = Auth::id();
-        $studentId = 1;
+        $userId = Auth::id();
+        $studentId = Student::where('user_id', $userId)->pluck('id')->first();
+
         $batches = Batch::where('IsStillEnrolling', true)->get();
         $grades = Grade::all();
 
@@ -67,7 +70,8 @@ class EnrollmentController extends Controller
 
         $subjectId = $request->input('subject');
         // $studentId = Auth::id();
-        $studentId = 1;
+        $userId = Auth::id();
+        $studentId = Student::where('user_id', $userId)->pluck('id')->first();
 
         $enrolmentDetails = Enrollment::where('subject_id', $subjectId)
             ->where('student_id', $studentId)
@@ -81,9 +85,59 @@ class EnrollmentController extends Controller
 
         $enrolment = new Enrollment();
         $enrolment->subject_id = $request->input('subject');
-        $enrolment->student_id = 1;
+        $enrolment->student_id = $studentId ;
         $enrolment->save();
 
-        return redirect()->back()->with('success', 'Enrolment successfully!');
+        $student = Student::where('user_id', $userId)->first();
+
+        $merchant_id = '1227290'; // Replace with your Merchant ID
+        $order_id = $studentId; // Replace with dynamic order ID
+        $amount = 250; // Replace with dynamic amount
+        $currency = 'LKR';
+        $merchant_secret = 'MzgyMTk2ODQzODM4MzcxNjQyNDUyMjUxODI5NjY2MTkwOTY4NDk0Mw=='; // Replace with your Merchant Secret
+
+        // Generate the hash
+        $hash = strtoupper(
+            md5(
+                $merchant_id . 
+                $order_id . 
+                number_format($amount, 2, '.', '') . 
+                $currency .  
+                strtoupper(md5($merchant_secret)) 
+            ) 
+        );
+
+        // Customer details (you may get these from the request or session)
+        $customer = [
+            'first_name' => $student->FullName,
+            'last_name' => $student->FullName,
+            'email' => $student->email,
+            'phone' => $student->contactNumber,
+            'address' => $student->street,
+            'city' => $student->city,
+            'country' => 'Sri Lanka'
+        ];
+
+        // Payment details
+        $paymentDetails = [
+            'merchant_id' => $merchant_id,
+            'order_id' => $order_id,
+            'items' => 'Class Fees', // Replace with dynamic item description
+            'currency' => $currency,
+            'amount' => $amount,
+            'first_name' => $customer['first_name'],
+            'last_name' => $customer['last_name'],
+            'email' => $customer['email'],
+            'phone' => $customer['phone'],
+            'address' => $customer['address'],
+            'city' => $customer['city'],
+            'country' => $customer['country'],
+            'hash' => $hash,
+            'return_url' => 'http://127.0.0.1:8000/enrollment/'.$enrolment->id, 
+            'cancel_url' => 'http://sample.com/cancel', 
+            'notify_url' => 'http://sample.com/notify'  
+        ];
+
+        return view('payment.payhere', compact('paymentDetails'));
     }
 }

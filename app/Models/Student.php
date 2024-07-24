@@ -12,6 +12,6 @@ class Student extends Model
         'initial', 'LastName', 'FullName', 'Gender', 'birthday',
         'school', 'city', 'grade', 'contactNumber', 'email', 'houseNumber',
         'street', 'district', 'province', 'PerentFullName', 'PerentGender',
-        'PerentNic', 'PerentContact', 'PerentEmail'
+        'PerentNic', 'PerentContact', 'PerentEmail','user_id'
     ];
 }

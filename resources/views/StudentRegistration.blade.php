@@ -21,7 +21,7 @@
             <div class="col-md-11">
                 <div class="card">
                     {{-- Heading Student Registration  --}}
-                    <form action="SaveStudent" method="POST">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <!-- Success Message -->
                         @if (session('success'))
@@ -61,10 +61,10 @@
                                                     placeholder="ex, A.L">
                                             </div>
                                             <div class="col-6">
-                                                <label for="LastName" class="fw-bold">Last Name <span
+                                                <label for="name" class="fw-bold">Last Name <span
                                                         class="text-danger">*</span></label>
-                                                <input type="text" name="LastName" id="LastName"
-                                                    class="form-control" placeholder="ex, Sandaruwan">
+                                                <input type="text" name="name" id="name" class="form-control"
+                                                    placeholder="ex, Sandaruwan">
                                             </div>
                                         </div>
 
@@ -147,8 +147,17 @@
                                             <div class="col-4">
                                                 <label for="Email" class="fw-bold">E-mail <span
                                                         class="text-danger">*</span></label>
-                                                <input type="email" name="Email" id="Email"
-                                                    class="form-control" placeholder="ex, abc@mail.com">
+
+                                                <input id="Email" type="email"
+                                                    class="form-control @error('email') is-invalid @enderror"
+                                                    name="email" value="{{ old('email') }}" required
+                                                    autocomplete="Email">
+
+                                                @error('Email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
 
@@ -253,6 +262,39 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="email" name="Pemail" id="Pemail"
                                                     class="form-control" placeholder="abc@gmail.com">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-5">
+                                            <hr>
+                                            <h4>Login details</h4>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <label for="password"
+                                                class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                                            <div class="col-md-6">
+                                                <input id="password" type="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    name="password" required autocomplete="new-password">
+
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="password-confirm"
+                                                class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                                            <div class="col-md-6">
+                                                <input id="password-confirm" type="password" class="form-control"
+                                                    name="password_confirmation" required autocomplete="new-password">
                                             </div>
                                         </div>
 

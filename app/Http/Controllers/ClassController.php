@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Homework;
 use App\Models\HomeworkSubmition;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\SubjectMapping;
+use App\Models\Teacher;
 use App\Models\ZoomLink;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,10 @@ class ClassController extends Controller
     //
     public function ViewClasses()
     {
+        $userId = Auth::id();
+        $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
 
+        //ToDO add teacher id
         $classes = DB::table('subject_mappings')
             ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
             ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
@@ -29,7 +34,7 @@ class ClassController extends Controller
                 'batches.Year as batch_name'
             )
             ->where('subject_mappings.IsEnd', false)
-            ->where('subject_mappings.teacher_id', 1)
+            ->where('subject_mappings.teacher_id', $teacherId)
             ->get();
         return view('Teacher.OngoingClasses', compact('classes'));
     }
@@ -61,7 +66,9 @@ class ClassController extends Controller
     public function ViewHomeworks()
     {
         // $teacherId = Auth::id();
-        $teacherId = 1;
+        $userId = Auth::id();
+        $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
+
         $currentDate = now();
 
         $homeworks = Homework::select('homework.*', 'subjects.subject_name as subject_name', 'grades.Grade as grade_name', 'batches.Year as batch_name')
@@ -110,7 +117,8 @@ class ClassController extends Controller
         return redirect()->back()->with('success', 'Results updated successfully');
     }
 
-    public function Savelink(Request $request){
+    public function Savelink(Request $request)
+    {
         $request->validate([
             'subject_id' => 'required|integer',
             'link' => 'required|string',
@@ -128,5 +136,28 @@ class ClassController extends Controller
         $zoomlink->save();
 
         return redirect()->back()->with('success', 'Zoom link updated successfully');
+    }
+
+    public function SubmitHomeworks(Request $request)
+    {
+        
+        $userId = Auth::id();
+        $studentId = Student::where('user_id', $userId)->pluck('id')->first();
+        
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filePath = $file->store('homeworks_submit', 'public');
+
+            $submit = new HomeworkSubmition();
+            $submit->Submision_file_path = $filePath;
+            $submit->student_id = $studentId;
+            $submit->subject_id = $request->input('subject_id');
+            $submit->homework_id = $request->input('homework_id');
+            $submit->save();
+
+            return redirect()->back()->with('success', 'Homework saved successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Submission failed');
     }
 }

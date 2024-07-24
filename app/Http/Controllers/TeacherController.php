@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Teacher;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Mail\TeacherPasswordEmail;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class TeacherController extends Controller
 {
@@ -25,8 +31,17 @@ class TeacherController extends Controller
             'T_district' => 'nullable|string|max:255',
             'T_province' => 'nullable|string|max:255',
         ]);
+        
+        $randomPassword = Str::random(12);
 
-        // Create a new instance of your Teacher model and fill it with validated data
+        $user = new User();
+        $user->name = $request->input('teacher_Lastname');
+        $user->email = $request->input('T_email');
+        $user->email_verified_at = Carbon::now();
+        $user->password = Hash::make($randomPassword);
+        $user->user_role = 2;
+        $user->save();
+
         $teacher = new Teacher();
         $teacher->initial = $request->input('teacher_initial');
         $teacher->lastname = $request->input('teacher_Lastname');
@@ -41,8 +56,11 @@ class TeacherController extends Controller
         $teacher->street = $request->input('T_streetaddress');
         $teacher->district = $request->input('T_district');
         $teacher->province = $request->input('T_province');
+        $teacher->user_id = $user->id;
 
         $teacher->save();
+
+        Mail::to($user->email)->send(new TeacherPasswordEmail($user->name, $randomPassword));
 
         return redirect()->back()->with('success', 'Teacher registered successfully!');
     }

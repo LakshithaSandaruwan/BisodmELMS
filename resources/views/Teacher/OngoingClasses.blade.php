@@ -117,6 +117,10 @@
                                                                 data-subject-id="{{ $class->id }}">Add Homeworks</a>
 
                                                             <a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#quizmodel" class="dropdown-item"
+                                                                data-quiz-id="{{ $class->id }}">New Quiz</a>
+
+                                                            <a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#zoomlink" class="dropdown-item"
                                                                 data-link-id="{{ $class->id }}">Add Zoom classes
                                                                 links</a>
@@ -135,13 +139,43 @@
         </div>
 
         <!-- Modal -->
+        <div class="modal fade" id="quizmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Homeworks</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="savequiz" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" id="subject-id" name="subject_id">
+
+                            <label for="file" class="form-label">Quiz name<span class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" id="name" required>
+
+                            <label for="deadline" class="form-label mt-4">Deadline<span
+                                    class="text-danger">*</span></label>
+                            <input type="date" name="deadline" class="form-control" id="deadline"
+                                aria-describedby="deadline" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="modal fade" id="homeworkmodel" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Homeworks</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
                     <form action="savehomeworks" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -241,6 +275,19 @@
                 var button = event.relatedTarget;
                 var subjectId = button.getAttribute(
                     'data-subject-id');
+                var modal = homeworkModal;
+                modal.querySelector('#subject-id').value = subjectId;
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var homeworkModal = document.getElementById('quizmodel');
+            homeworkModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var subjectId = button.getAttribute(
+                    'data-quiz-id');
                 var modal = homeworkModal;
                 modal.querySelector('#subject-id').value = subjectId;
             });

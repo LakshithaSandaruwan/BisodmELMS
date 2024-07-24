@@ -10,6 +10,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\MyClassesController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,61 +49,85 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //admin
-Route::get('/admin', function () {
-    return view('Admin.Dashboard');
-});
 
-Route::get('/teacher', function () {
-    return view('Admin.Teacher');
-});
-
-Route::get('/subject', [SubjectController::class, 'View']);
-
-Route::post('/savesubject', [SubjectController::class, 'Save']);
-
-Route::get('/grades', [GradeController::class, 'View']);
-
-Route::post('/savegrade', [GradeController::class, 'Save']);
-
-Route::get('/setsubjects', [SubjectController::class, 'SubjectMapping']);
-
-Route::post('/subjectmapping', [SubjectController::class, 'SaveSubjectMapping']);
-
-Route::get('/subject-mappings/filter', [SubjectController::class, 'filter'])->name('subject-mappings.filter');
-
-Route::get('/batch', [BatchController::class, 'view']);
-
-Route::post('/savebatch', [BatchController::class, 'Save']);
 
 
 //teacher
-Route::get('/teacher', function () {
-    return view('Teacher.Dashboard');
-});
 
-Route::get('/ongoingclasses', [ClassController::class, 'ViewClasses']);
-
-Route::post('/savehomeworks', [ClassController::class, 'savehomework']);
-
-Route::get('/homeworks', [ClassController::class, 'ViewHomeworks']);
-
-Route::get('/viewhomeworksubmision/{id}', [ClassController::class, 'ViewHomeworkSubmisions']);
-
-Route::post('/AddResults', [ClassController::class, 'AddResults']);
-
-Route::post('/savelink', [ClassController::class, 'Savelink']);
 
 //student
-Route::get('/student', function () {
-    return view('Student.Dashboard');
+
+
+Route::middleware(['auth', 'Admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('Admin.Dashboard');
+    });
+
+    Route::get('/teacherregistration', function () {
+        return view('Admin.Teacher');
+    });
+
+    Route::get('/subject', [SubjectController::class, 'View']);
+
+    Route::post('/savesubject', [SubjectController::class, 'Save']);
+
+    Route::get('/grades', [GradeController::class, 'View']);
+
+    Route::post('/savegrade', [GradeController::class, 'Save']);
+
+    Route::get('/setsubjects', [SubjectController::class, 'SubjectMapping']);
+
+    Route::post('/subjectmapping', [SubjectController::class, 'SaveSubjectMapping']);
+
+    Route::get('/subject-mappings/filter', [SubjectController::class, 'filter'])->name('subject-mappings.filter');
+
+    Route::get('/batch', [BatchController::class, 'view']);
+
+    Route::post('/savebatch', [BatchController::class, 'Save']);
 });
 
-Route::get('/enrollment', [EnrollmentController::class, 'ViewNewEnrolment']);
+Route::middleware(['auth', 'Teacher'])->group(function () {
+    Route::get('/teacher', function () {
+        return view('Teacher.Dashboard');
+    });
 
-Route::get('/subjects-by-grade/{gradeId}/{batchId}', [EnrollmentController::class, 'getSubjectsByGrade']);
+    Route::get('/ongoingclasses', [ClassController::class, 'ViewClasses']);
 
-Route::post('/saveenrolment', [EnrollmentController::class, 'SaveEnrolment']);
+    Route::post('/savehomeworks', [ClassController::class, 'savehomework']);
 
-Route::get('/myclasses', [MyClassesController::class, 'ViewClasses']);
+    Route::get('/homeworks', [ClassController::class, 'ViewHomeworks']);
 
+    Route::get('/viewhomeworksubmision/{id}', [ClassController::class, 'ViewHomeworkSubmisions']);
 
+    Route::post('/AddResults', [ClassController::class, 'AddResults']);
+
+    Route::post('/savelink', [ClassController::class, 'Savelink']);
+
+    Route::post('/savequiz', [QuizController::class, 'SubmitQuiz']);
+
+    Route::post('/save-question', [QuizController::class, 'saveQuestion'])->name('saveQuestion');
+
+    Route::get('/add-questions/{quizid}', [QuizController::class, 'AddQuestions'])->name('add-questions');
+});
+
+Route::middleware(['auth', 'Student'])->group(function () {
+    Route::get('/student', function () {
+        return view('Student.Dashboard');
+    });
+
+    Route::get('/enrollment', [EnrollmentController::class, 'ViewNewEnrolment']);
+
+    Route::get('/subjects-by-grade/{gradeId}/{batchId}', [EnrollmentController::class, 'getSubjectsByGrade']);
+
+    Route::post('/saveenrolment', [EnrollmentController::class, 'SaveEnrolment']);
+
+    Route::get('/myhomeworks', [MyClassesController::class, 'MyHomeWorks']);
+
+    Route::post('/submithomework', [ClassController::class, 'SubmitHomeworks']);
+
+    Route::get('/take-quiz', [QuizController::class, 'MyQuiz']);
+
+    Route::get('/view-quiz-questions/{id}', [QuizController::class, 'ViewQuizQuestions']);
+
+    Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
+});

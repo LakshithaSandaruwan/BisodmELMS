@@ -9,75 +9,6 @@
     <meta content="" name="description">
     @include('CDNs.AdminCDN')
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart', 'bar']
-        });
-        google.charts.setOnLoadCallback(drawAllCharts);
-
-        function drawAllCharts() {
-            drawAcademicPerformanceChart();
-            drawAttendanceRecordChart();
-        }
-
-        function drawAcademicPerformanceChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Subject', 'Score'],
-                ['Math', 90],
-                ['Science', 85],
-                ['History', 80],
-                ['English', 95],
-                ['Art', 70]
-            ]);
-
-            var options = {
-                title: 'Academic Performance',
-                hAxis: {
-                    title: 'Subjects'
-                },
-                vAxis: {
-                    title: 'Scores'
-                },
-                colors: ['#1b9e77']
-            };
-
-            var chart = new google.visualization.ColumnChart(document.getElementById('academic_performance_chart'));
-            chart.draw(data, options);
-        }
-
-        function drawAttendanceRecordChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', 'Attendance'],
-                ['January', 90],
-                ['February', 85],
-                ['March', 88],
-                ['April', 92],
-                ['May', 95],
-                ['June', 80],
-                ['July', 87],
-                ['August', 89],
-                ['September', 93],
-                ['October', 90],
-                ['November', 91],
-                ['December', 88]
-            ]);
-
-            var options = {
-                title: 'Attendance Record',
-                hAxis: {
-                    title: 'Month'
-                },
-                vAxis: {
-                    title: 'Attendance Rate (%)'
-                },
-                colors: ['#1b9e77']
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('attendance_record_chart'));
-            chart.draw(data, options);
-        }
-    </script>
 </head>
 
 <body>
@@ -96,127 +27,108 @@
         <div class="content">
             @include('Student.Include.Navbar')
 
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-book fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Subjects Enrolled</p>
-                                <h6 class="mb-0">5</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-calendar-check fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Attendance Rate</p>
-                                <h6 class="mb-0">90%</h6>
-                            </div>
-                        </div>
-                    </div>
+            <div class="overflow-hidden card table-nowrap table-card mt-5">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Home works</h5>
                 </div>
-            </div>
-
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Academic Performance</h2>
-                        <div id="academic_performance_chart" style="width: 100%; height: 500px;"></div>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Attendance Record</h2>
-                        <div id="attendance_record_chart" style="width: 100%; height: 500px;"></div>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Upcoming Deadlines</h2>
-                        <ul class="list-group">
-                            <li class="list-group-item">Assignment 1: Math - Due 10th August</li>
-                            <li class="list-group-item">Project: Science Fair - Due 20th August</li>
-                            <li class="list-group-item">Essay: History - Due 25th August</li>
-                            <li class="list-group-item">Art Exhibition Submission - Due 30th August</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Submitted Homework</h2>
-                        <ul class="list-group">
-                            <li class="list-group-item">Math Assignment 1 - Submitted</li>
-                            <li class="list-group-item">Science Project Proposal - Submitted</li>
-                            <li class="list-group-item">History Essay - Pending</li>
-                            <li class="list-group-item">English Book Report - Submitted</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Announcements</h2>
-                        <div class="alert alert-info" role="alert">
-                            Midterm exams start next week. Please check the schedule.
-                        </div>
-                        <div class="alert alert-info" role="alert">
-                            The library will be closed for renovations from 1st August to 15th August.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Timetable</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>9:00 - 10:00</th>
-                                    <th>10:00 - 11:00</th>
-                                    <th>11:00 - 12:00</th>
-                                    <th>12:00 - 1:00</th>
-                                    <th>1:00 - 2:00</th>
-                                    <th>2:00 - 3:00</th>
-                                    <th>3:00 - 4:00</th>
+                <div class="table-responsive">
+                    <table class="table mb-0">
+                        <thead class="small text-uppercase bg-body text-muted">
+                            <tr>
+                                <th>Subject</th>
+                                <th>Deadline</th>
+                                <th>Assignment</th>
+                                <th>Submission</th>
+                                <th>Upload</th>
+                                <th>Results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($homeworkDetails as $homeworkDetail)
+                                <tr class="align-middle">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <div class="h6 mb-0 lh-1">{{ $homeworkDetail->subject_name }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td> {{ $homeworkDetail->deadline }}</td>
+                                    <td> <span class="d-inline-block align-middle"><a
+                                                href="#{{ $homeworkDetail->file_path }}">Download</a></span>
+                                    </td>
+                                    <td>
+                                        @if ($homeworkDetail->submission_file_path == null)
+                                            <p class="fw-bold text-danger">Yet to submit</p>
+                                        @else
+                                            <a href="/{{ $homeworkDetail->submission_file_path }}">View</a>
+                                        @endif
+                                    </td>
+                                    <td><a href="#" data-bs-toggle="modal" data-bs-target="#homeworksubmission"
+                                            class="btn btn-primary"
+                                            data-homework-id="{{ $homeworkDetail->homework_id }}"
+                                            data-subject-id="{{ $homeworkDetail->subject_id }}">
+                                            Submit
+                                        </a>
+                                    </td>
+                                    <td>{{ $homeworkDetail->results }}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Monday</td>
-                                    <td>Math</td>
-                                    <td>Science</td>
-                                    <td>History</td>
-                                    <td>Lunch Break</td>
-                                    <td>English</td>
-                                    <td>Art</td>
-                                    <td>Physical Education</td>
-                                </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td>Science</td>
-                                    <td>Math</td>
-                                    <td>Art</td>
-                                    <td>Lunch Break</td>
-                                    <td>History</td>
-                                    <td>English</td>
-                                    <td>Computer Science</td>
-                                </tr>
-                                <!-- Add more rows for other days as needed -->
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
+
+    <div class="modal fade" id="homeworksubmission" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Homeworks</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="submithomework" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <input type="hidden" id="homework-id" name="homework_id">
+                        <input type="hidden" id="subject-id" name="subject_id">
+                        <label for="file" class="form-label">Select the homework file (pdf, docx, ppt)<span
+                                class="text-danger">*</span></label>
+                        <input type="file" name="file" class="form-control" id="file" aria-describedby="file"
+                            required accept=".pdf,.docx,.ppt">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var homeworkSubmissionModal = document.getElementById('homeworksubmission');
+            homeworkSubmissionModal.addEventListener('show.bs.modal', function(event) {
+                // Button that triggered the modal
+                var button = event.relatedTarget;
+                // Extract info from data-* attributes
+                var homeworkId = button.getAttribute('data-homework-id');
+                var subjectId = button.getAttribute('data-subject-id');
+
+                // Update the modal's hidden input fields
+                var modalHomeworkIdInput = homeworkSubmissionModal.querySelector('#homework-id');
+                var modalSubjectIdInput = homeworkSubmissionModal.querySelector('#subject-id');
+
+                modalHomeworkIdInput.value = homeworkId;
+                modalSubjectIdInput.value = subjectId;
+            });
+        });
+    </script>
 
     @include('CDNs.AdminJS')
 </body>
