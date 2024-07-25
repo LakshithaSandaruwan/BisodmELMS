@@ -2,15 +2,16 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\MyClassesController;
-use App\Http\Controllers\QuizController;
+use App\Http\Controllers\EnrollmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -131,3 +132,10 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
     Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
 });
+
+
+//payments
+Route::get('/payment/page/{id}', [PaymentController::class, 'handlePayment'])->name('payment.handle');
+Route::get('/payment/success', [PaymentController::class, 'paymentSuccess']);
+Route::get('/payment/cancel', [PaymentController::class, 'paymentCancel']);
+Route::post('/payment/notify', [PaymentController::class, 'paymentNotify']);
