@@ -88,7 +88,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('/teacherStudent/{id}', [TeacherController::class, 'showTeacherStudentCount']);
 
-    Route::get('/allteachers', [TeacherController::class, 'AllTeachers']);
+    Route::get('/allteachers', [TeacherController::class, 'AllTeachers'])->name('allteachers');
 
     Route::post('/salarypayment', [TeacherController::class, 'SalaryPay']);
 });

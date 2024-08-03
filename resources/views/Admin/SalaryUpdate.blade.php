@@ -20,7 +20,8 @@
         <div class="content">
             @include('Admin.Include.Navbar')
             <div class="container-fluid">
-                <form action="salarypayment" method="POST">
+                <form action="/salarypayment" method="POST">
+                    @csrf
                     <div class="row mt-5">
                         <div class="col-3">
                             <label for="">Gross Salary</label>

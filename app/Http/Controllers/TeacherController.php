@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Mail\TeacherPasswordEmail;
 use App\Models\TeacherPayment;
+use App\Mail\TeacherPasswordEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class TeacherController extends Controller
 {
@@ -92,13 +93,28 @@ class TeacherController extends Controller
     }
 
     public function SalaryPay(Request $request){
+        //dd($request);
+        $validator = Validator::make($request->all(), [
+            'teacherId' => 'required|exists:teachers,id',
+            'gross' => 'required|numeric',
+            'bonus' => 'required|numeric',
+            'insitutepay' => 'required|numeric',
+            'tax' => 'required|numeric',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        
         $payment = new TeacherPayment();
-        $payment->teacher_id = $request->input('teacherId');
-        $payment->month = $request->input('teacher_Lastname');
-        $payment->basic = $request->input('gross');
-        $payment->bonus = $request->input('bonus');
-        $payment->insitute_pay = $request->input('insitutepay');
-        $payment->taxes = $request->input('tax');
+        $payment->teacher_id = $request->teacherId;
+        $payment->month = Carbon::now();
+        $payment->basic = $request->gross;
+        $payment->bonus = $request->bonus;
+        $payment->insitute_pay = $request->insitutepay;
+        $payment->taxes = $request->tax;
         $payment->save();
+
+        return redirect()->route('allteachers');
     }
 }
