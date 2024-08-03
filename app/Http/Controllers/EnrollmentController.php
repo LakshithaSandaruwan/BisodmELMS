@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Batch;
 use App\Models\Grade;
 use App\Models\Student;
@@ -86,6 +87,7 @@ class EnrollmentController extends Controller
         $enrolment = new Enrollment();
         $enrolment->subject_id = $request->input('subject');
         $enrolment->student_id = $studentId ;
+        $enrolment->Next_Payment_Date = Carbon::now();
         $enrolment->save();
 
         $student = Student::where('user_id', $userId)->first();
