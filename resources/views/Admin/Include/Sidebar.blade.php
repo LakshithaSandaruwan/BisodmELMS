@@ -20,7 +20,7 @@
                     aria-hidden="true"></i>Teacher</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="/teacherregistration" class="dropdown-item">Registration</a>
-                <a href="typography.html" class="dropdown-item">All teachers</a>
+                <a href="/allteachers" class="dropdown-item">All teachers</a>
             </div>
         </div>
 

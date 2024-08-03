@@ -18,4 +18,14 @@ class Enrollment extends Model
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
+
+    public function subjectMapping()
+    {
+        return $this->belongsTo(SubjectMapping::class, 'subject_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(StudentPayment::class, 'enrolment_id');
+    }
 }

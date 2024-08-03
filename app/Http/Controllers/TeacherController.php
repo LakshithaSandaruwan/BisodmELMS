@@ -8,6 +8,7 @@ use App\Models\Teacher;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\TeacherPasswordEmail;
+use App\Models\TeacherPayment;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -31,7 +32,7 @@ class TeacherController extends Controller
             'T_district' => 'nullable|string|max:255',
             'T_province' => 'nullable|string|max:255',
         ]);
-        
+
         $randomPassword = Str::random(12);
 
         $user = new User();
@@ -63,5 +64,41 @@ class TeacherController extends Controller
         Mail::to($user->email)->send(new TeacherPasswordEmail($user->name, $randomPassword));
 
         return redirect()->back()->with('success', 'Teacher registered successfully!');
+    }
+
+    public function showTeacherStudentCount($teacherId)
+    {
+        $teacher = Teacher::findOrFail($teacherId);
+        $totalStudents = $teacher->calculateTotalStudents();
+
+        $gross = $totalStudents*250;
+        $insitutePay = $gross * 20 /100;
+
+        return view('Admin.SalaryUpdate', compact('gross', 'insitutePay','teacherId'));
+    }
+
+    public function AllTeachers(){
+        $teachers = Teacher::all();
+
+        $teachers = Teacher::with(['subjectMappings.enrollments.payments', 'payments'])->get();
+
+        foreach ($teachers as $teacher) {
+            $teacher->total_students = $teacher->calculateTotalStudents();
+            $teacher->has_payments = $teacher->hasPayments();
+        }
+
+       
+        return view('Admin.AllTeachers', compact('teachers'));
+    }
+
+    public function SalaryPay(Request $request){
+        $payment = new TeacherPayment();
+        $payment->teacher_id = $request->input('teacherId');
+        $payment->month = $request->input('teacher_Lastname');
+        $payment->basic = $request->input('gross');
+        $payment->bonus = $request->input('bonus');
+        $payment->insitute_pay = $request->input('insitutepay');
+        $payment->taxes = $request->input('tax');
+        $payment->save();
     }
 }

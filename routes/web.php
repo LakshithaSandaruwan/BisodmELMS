@@ -84,6 +84,12 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/batch', [BatchController::class, 'view']);
 
     Route::post('/savebatch', [BatchController::class, 'Save']);
+
+    Route::get('/teacherStudent/{id}', [TeacherController::class, 'showTeacherStudentCount']);
+
+    Route::get('/allteachers', [TeacherController::class, 'AllTeachers']);
+
+    Route::post('/salarypayment', [TeacherController::class, 'SalaryPay']);
 });
 
 Route::middleware(['auth', 'Teacher'])->group(function () {
@@ -131,3 +137,4 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
     Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
 });
+

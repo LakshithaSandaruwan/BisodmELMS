@@ -107,7 +107,6 @@ class EnrollmentController extends Controller
             ) 
         );
 
-        // Customer details (you may get these from the request or session)
         $customer = [
             'first_name' => $student->FullName,
             'last_name' => $student->FullName,
