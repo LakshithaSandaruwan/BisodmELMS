@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Teacher;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TeacherPayment;
+use App\Mail\TeacherSalaryMail;
 use App\Mail\TeacherPasswordEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -72,13 +74,14 @@ class TeacherController extends Controller
         $teacher = Teacher::findOrFail($teacherId);
         $totalStudents = $teacher->calculateTotalStudents();
 
-        $gross = $totalStudents*250;
-        $insitutePay = $gross * 20 /100;
+        $gross = $totalStudents * 250;
+        $insitutePay = $gross * 20 / 100;
 
-        return view('Admin.SalaryUpdate', compact('gross', 'insitutePay','teacherId'));
+        return view('Admin.SalaryUpdate', compact('gross', 'insitutePay', 'teacherId'));
     }
 
-    public function AllTeachers(){
+    public function AllTeachers()
+    {
         $teachers = Teacher::all();
 
         $teachers = Teacher::with(['subjectMappings.enrollments.payments', 'payments'])->get();
@@ -88,12 +91,12 @@ class TeacherController extends Controller
             $teacher->has_payments = $teacher->hasPayments();
         }
 
-       
+
         return view('Admin.AllTeachers', compact('teachers'));
     }
 
-    public function SalaryPay(Request $request){
-        //dd($request);
+    public function SalaryPay(Request $request, PDF $pdf)
+    {
         $validator = Validator::make($request->all(), [
             'teacherId' => 'required|exists:teachers,id',
             'gross' => 'required|numeric',
@@ -105,7 +108,8 @@ class TeacherController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-        
+    
+        // Save teacher payment
         $payment = new TeacherPayment();
         $payment->teacher_id = $request->teacherId;
         $payment->month = Carbon::now();
@@ -114,6 +118,20 @@ class TeacherController extends Controller
         $payment->insitute_pay = $request->insitutepay;
         $payment->taxes = $request->tax;
         $payment->save();
+    
+        // Fetch teacher and prepare salary details
+        $teacher = Teacher::findOrFail($request->teacherId);
+        $salaryDetails = [
+            'month' => Carbon::now()->format('F Y'),
+            'basic' => $request->gross,
+            'bonus' => $request->bonus,
+            'insitute_pay' => $request->insitutepay,
+            'taxes' => $request->tax,
+            'total' => $request->gross + $request->bonus + $request->insitutepay - $request->tax,
+        ];
+    
+        // Send email with PDF attachment
+        Mail::to($teacher->email)->send(new TeacherSalaryMail($teacher, $salaryDetails, $pdf));
 
         return redirect()->route('allteachers');
     }
