@@ -23,21 +23,24 @@
         }
 
         function drawRegistrationChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', '2023', '2024'],
-                ['January', 100, 120],
-                ['February', 90, 110],
-                ['March', 130, 140],
-                ['April', 120, 130],
-                ['May', 150, 160],
-                ['June', 170, 180],
-                ['July', 200, 210],
-                ['August', 180, 190],
-                ['September', 220, 230],
-                ['October', 190, 200],
-                ['November', 210, 220],
-                ['December', 230, 240]
-            ]);
+            var currentMonthData = @json($currentMonthData);
+            var lastMonthData = @json($lastMonthData);
+
+            var daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+            var daysInLastMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate();
+
+            var chartData = [
+                ['Day', 'Last Month', 'Current Month']
+            ];
+            for (var i = 1; i <= Math.max(daysInLastMonth, daysInMonth); i++) {
+                chartData.push([
+                    i.toString(),
+                    lastMonthData[i] || 0,
+                    currentMonthData[i] || 0
+                ]);
+            }
+
+            var data = google.visualization.arrayToDataTable(chartData);
 
             var options = {
                 title: 'Student Registration Comparison',
@@ -46,7 +49,7 @@
                     position: 'bottom'
                 },
                 hAxis: {
-                    title: 'Month'
+                    title: 'Day'
                 },
                 vAxis: {
                     title: 'Number of Registrations'
@@ -61,12 +64,9 @@
         function drawPopularSubjectsChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Subject', 'Enrollments'],
-                ['Mathematics', 300],
-                ['Science', 250],
-                ['History', 200],
-                ['English', 400],
-                ['Art', 150],
-                ['Physical Education', 100]
+                @foreach ($popularSubjects as $subject)
+                    ['{{ $subject->subject_name }}', {{ $subject->enrollment_count }}],
+                @endforeach
             ]);
 
             var options = {
@@ -89,21 +89,24 @@
         }
 
         function drawTeacherRegistrationChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Month', '2023', '2024'],
-                ['January', 10, 12],
-                ['February', 9, 11],
-                ['March', 13, 14],
-                ['April', 12, 13],
-                ['May', 15, 16],
-                ['June', 17, 18],
-                ['July', 20, 21],
-                ['August', 18, 19],
-                ['September', 22, 23],
-                ['October', 19, 20],
-                ['November', 21, 22],
-                ['December', 23, 24]
-            ]);
+            var currentMonthData = @json($currentMonthTeachersData);
+            var lastMonthData = @json($lastMonthTeachersData);
+
+            var daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+            var daysInLastMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate();
+
+            var chartData = [
+                ['Day', 'Last Month', 'Current Month']
+            ];
+            for (var i = 1; i <= Math.max(daysInLastMonth, daysInMonth); i++) {
+                chartData.push([
+                    i.toString(),
+                    lastMonthData[i] || 0,
+                    currentMonthData[i] || 0
+                ]);
+            }
+
+            var data = google.visualization.arrayToDataTable(chartData);
 
             var options = {
                 title: 'Teacher Registration Comparison',
@@ -112,12 +115,12 @@
                     position: 'bottom'
                 },
                 hAxis: {
-                    title: 'Month'
+                    title: 'Day'
                 },
                 vAxis: {
                     title: 'Number of Registrations'
                 },
-                colors: ['#ff6347', '#4682b4']
+                colors: ['#1b9e77', '#d95f02']
             };
 
             var chart = new google.visualization.LineChart(document.getElementById('teacher_chart'));
@@ -141,7 +144,10 @@
 
         <div class="content">
             @include('Admin.Include.Navbar')
-
+            <form action="{{ route('admin.backup') }}" method="get">
+                @csrf
+                <button type="submit" class="btn btn-primary">Create Backup</button>
+            </form>
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
                     <div class="col-sm-6 col-xl-3">
@@ -149,7 +155,7 @@
                             <i class="fa fa-chart-line fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Students</p>
-                                <h6 class="mb-0">78</h6>
+                                <h6 class="mb-0">{{ $students }}</h6>
                             </div>
                         </div>
                     </div>
@@ -158,7 +164,7 @@
                             <i class="fa fa-chart-bar fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Teachers</p>
-                                <h6 class="mb-0">10</h6>
+                                <h6 class="mb-0">{{ $teachers }}</h6>
                             </div>
                         </div>
                     </div>
@@ -166,8 +172,8 @@
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
                             <i class="fa fa-chart-area fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">month Revenue</p>
-                                <h6 class="mb-0">LKR 21000.00</h6>
+                                <p class="mb-2">Month Revenue</p>
+                                <h6 class="mb-0">LKR {{ $totalAmountforCorrentMonth }}</h6>
                             </div>
                         </div>
                     </div>
@@ -176,7 +182,7 @@
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Revenue</p>
-                                <h6 class="mb-0">LKR 74570.00</h6>
+                                <h6 class="mb-0">LKR {{ $totalAmount }}</h6>
                             </div>
                         </div>
                     </div>
@@ -205,12 +211,14 @@
                     </div>
                 </div>
             </div>
+
+            @include('CDNs.AdminJS')
         </div>
 
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top">
+            <i class="bi bi-arrow-up"></i>
+        </a>
     </div>
-
-    @include('CDNs.AdminJS')
 </body>
 
 </html>
