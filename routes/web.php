@@ -6,6 +6,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\BackupController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
@@ -91,6 +92,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/allteachers', [TeacherController::class, 'AllTeachers'])->name('allteachers');
 
     Route::post('/salarypayment', [TeacherController::class, 'SalaryPay']);
+
+    Route::get('/admin/backup', [BackupController::class, 'createBackup'])->name('admin.backup');
 });
 
 Route::middleware(['auth', 'Teacher'])->group(function () {
