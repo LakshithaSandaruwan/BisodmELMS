@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\StudentPayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Termwind\Components\Dd;
 
 class HomeController extends Controller
 {
@@ -147,6 +148,21 @@ class HomeController extends Controller
                         'subjects.subject_name'
                     )
                     ->get();
+
+                    $timetable = DB::table('enrollments as e')
+                    ->join('subject_mappings as sm', 'e.subject_id', '=', 'sm.id')
+                    ->join('subjects as s', 'sm.subject_id', '=', 's.id')
+                    ->join('zoom_links as zl', 'sm.id', '=', 'zl.subject_id')
+                    ->select(
+                        's.subject_name',
+                        'zl.Links as zoom_link',
+                        'zl.day as day',
+                        'zl.StartTime as StartTime',
+                        'zl.EndTime as EndTime'
+                    )
+                    ->where('e.student_id', $studentId)
+                    ->get();
+        
 
                 return view('Student.Dashboard', compact('results', 'enrollcount', 'upcomingDeadlines'));
             } else {

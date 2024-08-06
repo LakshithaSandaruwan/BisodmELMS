@@ -14,4 +14,9 @@ class Student extends Model
         'street', 'district', 'province', 'PerentFullName', 'PerentGender',
         'PerentNic', 'PerentContact', 'PerentEmail','user_id'
     ];
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class);
+    }
 }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ZoomLink extends Model
 {
     use HasFactory;
+
+    public function subjectMapping()
+    {
+        return $this->belongsTo(SubjectMapping::class);
+    }
 }

@@ -133,6 +133,8 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
     Route::get('/myhomeworks', [MyClassesController::class, 'MyHomeWorks']);
 
+    Route::get('/MyCalander', [MyClassesController::class, 'Calander']);
+    
     Route::post('/submithomework', [ClassController::class, 'SubmitHomeworks']);
 
     Route::get('/take-quiz', [QuizController::class, 'MyQuiz']);

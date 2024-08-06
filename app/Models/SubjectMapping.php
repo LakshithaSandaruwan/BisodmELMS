@@ -23,4 +23,9 @@ class SubjectMapping extends Model
     {
         return $this->hasMany(Enrollment::class, 'subject_id');
     }
+
+    public function zoomLinks()
+    {
+        return $this->hasMany(ZoomLink::class);
+    }
 }

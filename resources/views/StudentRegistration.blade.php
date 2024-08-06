@@ -58,13 +58,13 @@
                                                 <label for="Initial" class="fw-bold">Initial <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="Initial" id="Initial" class="form-control"
-                                                    placeholder="ex, A.L">
+                                                    placeholder="ex, A.L" value="{{ old('Initial') }}">
                                             </div>
                                             <div class="col-6">
                                                 <label for="name" class="fw-bold">Last Name <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="name" id="name" class="form-control"
-                                                    placeholder="ex, Sandaruwan">
+                                                    placeholder="ex, Sandaruwan" value="{{ old('name') }}">
                                             </div>
                                         </div>
 

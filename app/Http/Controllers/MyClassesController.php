@@ -21,7 +21,7 @@ class MyClassesController extends Controller
             ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
             ->leftJoin('homework_submitions', function ($join) use ($studentId) {
                 $join->on('homework.id', '=', 'homework_submitions.homework_id')
-                     ->where('homework_submitions.student_id', '=', $studentId);
+                    ->where('homework_submitions.student_id', '=', $studentId);
             })
             ->where('enrollments.student_id', $studentId)
             ->distinct()
@@ -38,5 +38,27 @@ class MyClassesController extends Controller
             ->get();
 
         return view('Student.MyClass', compact('homeworkDetails'));
+    }
+
+    public function Calander()
+    {
+        $userId = Auth::id();
+        $studentId = Student::where('user_id', $userId)->pluck('id')->first();
+
+        $timetable = DB::table('enrollments as e')
+            ->join('subject_mappings as sm', 'e.subject_id', '=', 'sm.id')
+            ->join('subjects as s', 'sm.subject_id', '=', 's.id')
+            ->join('zoom_links as zl', 'sm.id', '=', 'zl.subject_id')
+            ->select(
+                's.subject_name',
+                'zl.Links as zoom_link',
+                'zl.day',
+                'zl.StartTime',
+                'zl.EndTime'
+            )
+            ->where('e.student_id', $studentId)
+            ->get();
+
+        return view('Student.Calander', compact('timetable'));
     }
 }
