@@ -24,11 +24,11 @@
         function drawAcademicPerformanceChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Subject', 'Score'],
-                ['Math', 90],
-                ['Science', 85],
-                ['History', 80],
-                ['English', 95],
-                ['Art', 70]
+                @foreach ($results as $result)
+                    @if ($result->results !== 'pending')
+                        ['{{ $result->subject_name }}', {{ $result->results ?? 0 }}],
+                    @endif
+                @endforeach
             ]);
 
             var options = {
@@ -103,7 +103,7 @@
                             <i class="fa fa-book fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Subjects Enrolled</p>
-                                <h6 class="mb-0">5</h6>
+                                <h6 class="mb-0">{{$enrollcount}}</h6>
                             </div>
                         </div>
                     </div>
@@ -134,41 +134,18 @@
                     </div>
                 </div>
 
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Upcoming Deadlines</h2>
+                <div class="row mt-5 ">
+                    <div class="col-md-12 bg-success">
+                        <h2 class="text-center mt-3 mb-3">Upcoming Deadlines</h2>
                         <ul class="list-group">
-                            <li class="list-group-item">Assignment 1: Math - Due 10th August</li>
-                            <li class="list-group-item">Project: Science Fair - Due 20th August</li>
-                            <li class="list-group-item">Essay: History - Due 25th August</li>
-                            <li class="list-group-item">Art Exhibition Submission - Due 30th August</li>
+                            @foreach ($upcomingDeadlines as $upcomingDeadline)
+                            <li class="list-group-item bg-warning text-light fw-bold">Homework : {{$upcomingDeadline->subject_name}} - Due {{$upcomingDeadline->deadline}}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
 
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Submitted Homework</h2>
-                        <ul class="list-group">
-                            <li class="list-group-item">Math Assignment 1 - Submitted</li>
-                            <li class="list-group-item">Science Project Proposal - Submitted</li>
-                            <li class="list-group-item">History Essay - Pending</li>
-                            <li class="list-group-item">English Book Report - Submitted</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Announcements</h2>
-                        <div class="alert alert-info" role="alert">
-                            Midterm exams start next week. Please check the schedule.
-                        </div>
-                        <div class="alert alert-info" role="alert">
-                            The library will be closed for renovations from 1st August to 15th August.
-                        </div>
-                    </div>
-                </div>
+                
 
                 <div class="row mt-5">
                     <div class="col-md-12">
