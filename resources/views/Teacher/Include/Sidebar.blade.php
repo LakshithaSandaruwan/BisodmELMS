@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="ms-3">
-            <h6 class="mb-0">Jhon Doe</h6>
+            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
             <span>Teacher</span>
         </div>
     </div>

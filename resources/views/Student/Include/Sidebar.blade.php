@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="ms-3">
-            <h6 class="mb-0">Avesh Khan</h6>
+            <h6 class="mb-0">{{ Auth::user()->name }}</h6>
             <span>Student</span>
         </div>
     </div>
@@ -21,6 +21,8 @@
         <a href="/myhomeworks" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Homeworks</a>
 
         <a href="/take-quiz" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Quizes</a>
+
+        <a href="/MyCalander" class="nav-item nav-link"><i class="fa fa-th me-2"></i>My Classes</a>
        
     </div>
 </nav>

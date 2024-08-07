@@ -45,7 +45,7 @@ class MyClassesController extends Controller
         $userId = Auth::id();
         $studentId = Student::where('user_id', $userId)->pluck('id')->first();
 
-        $timetable = DB::table('enrollments as e')
+        $timetables = DB::table('enrollments as e')
             ->join('subject_mappings as sm', 'e.subject_id', '=', 'sm.id')
             ->join('subjects as s', 'sm.subject_id', '=', 's.id')
             ->join('zoom_links as zl', 'sm.id', '=', 'zl.subject_id')
@@ -59,6 +59,7 @@ class MyClassesController extends Controller
             ->where('e.student_id', $studentId)
             ->get();
 
-        return view('Student.Calander', compact('timetable'));
+            // dd($timetables);
+        return view('Student.Calander', compact('timetables'));
     }
 }
