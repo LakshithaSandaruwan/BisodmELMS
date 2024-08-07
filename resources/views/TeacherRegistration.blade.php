@@ -59,14 +59,14 @@
                                                 <label for="Initial" class="fw-bold">Initial <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="teacher_initial" id="teacher_initial"
-                                                    class="form-control" placeholder="ex, D.P">
+                                                    class="form-control" placeholder="ex, D.P" value="{{ old('teacher_initial') }}">
                                             </div>
 
                                             <div class="col-6">
                                                 <label for="teacher_lastname" class="fw-bold">Last Name <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="teacher_Lastname" id="teacher_Lastname"
-                                                    class="form-control" placeholder="ex, Ranjani">
+                                                    class="form-control" placeholder="ex, Ranjani" value="{{ old('teacher_Lastname') }}">
                                             </div>
                                         </div>
 
@@ -75,7 +75,7 @@
                                                 <label for="teacher_fullname" class="fw-bold">Full Name <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="teacher_fullname" id="teacher_fullname"
-                                                    class="form-control" placeholder="ex, Deva Pushpa Ranjani">
+                                                    class="form-control" placeholder="ex, Deva Pushpa Ranjani" value="{{ old('teacher_fullname') }}">
                                             </div>
                                         </div>
 
@@ -94,7 +94,7 @@
                                                 <label for="teacher_bday" class="fw-bold">Birthday <span
                                                         class="text-danger">*</span></label>
                                                 <input type="date" name="teacher_birthday" id="teacher_birthday"
-                                                    class="form-control">
+                                                    class="form-control" value="{{ old('teacher_birthday') }}">
                                             </div>
                                         </div>
 
@@ -103,7 +103,7 @@
                                                 <label for="T_NIC" class="fw-bold">NIC Number <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="T_NIC" id="T_NIC" class="form-control"
-                                                    placeholder="ex, 199734503580">
+                                                    placeholder="ex, 199734503580" value="{{ old('T_NIC') }}">
                                             </div>
                                         </div>
 
@@ -113,7 +113,7 @@
                                                 </label>
                                                 <input type="text" name="study_qulification" id="study_qulification"
                                                     class="form-control"
-                                                    placeholder="ex, Rajarata University Management Degree">
+                                                    placeholder="ex, Rajarata University Management Degree" value="{{ old('study_qulification') }}">
                                             </div>
                                         </div>
 
@@ -127,13 +127,13 @@
                                                 <label for="T_contact" class="fw-bold">Contact Number <span
                                                         class="text-danger">*</span></label>
                                                 <input type="number" name="T_number" id="T_number"
-                                                    class="form-control" placeholder="ex, 0779868982">
+                                                    class="form-control" placeholder="ex, 0779868982" value="{{ old('T_number') }}">
                                             </div>
                                             <div class="col-4">
                                                 <label for="T_email" class="fw-bold">E-mail <span
                                                         class="text-danger">*</span></label>
                                                 <input type="email" name="T_email" id="T_email"
-                                                    class="form-control" placeholder="ex, pushpa@gmail.com">
+                                                    class="form-control" placeholder="ex, pushpa@gmail.com" value="{{ old('T_email') }}">
                                             </div>
                                         </div>
 
@@ -146,13 +146,13 @@
                                             <div class="col-3">
                                                 <label for="T_housenumber" class="fw">House Number</label>
                                                 <input type="text" name="T_housenumber" id="T_housenumber"
-                                                    placeholder="ex, 215/A">
+                                                    placeholder="ex, 215/A" value="{{ old('T_housenumber') }}">
                                             </div>
                                             <div class="col-6">
                                                 <label for="T_streetaddress" class="fw">Street Address <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="T_streetaddress" id="T_streetaddress"
-                                                    class="form-control" placeholder="ex, Oruthota Road">
+                                                    class="form-control" placeholder="ex, Oruthota Road" value="{{ old('T_streetaddress') }}">
                                             </div>
                                         </div>
                                         <div class="row mt-3">
@@ -160,7 +160,7 @@
                                                 <label for="T_district" class="fw-bold">District <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="T_district" id="T_district"
-                                                    class="form-control" placeholder="ex, Gampaha">
+                                                    class="form-control" placeholder="ex, Gampaha" value="{{ old('T_district') }}">
                                             </div>
                                             <div class="col-4">
                                                 <label for="T_province" class="fw-bold">Province <span
