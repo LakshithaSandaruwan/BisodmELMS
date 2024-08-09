@@ -190,7 +190,7 @@ class QuizController extends Controller
             ]);
         }
 
-        return redirect()->route('showQuiz', $request->input('quiz_id'))->with('success', 'Quiz submitted successfully!');
+        return redirect()->route('view-questions', $request->input('quiz_id'))->with('success', 'Quiz submitted successfully!');
     }
 
     public function viewQuizes()

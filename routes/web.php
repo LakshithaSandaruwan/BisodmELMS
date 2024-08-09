@@ -105,7 +105,13 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/filter-students', [StudentController::class, 'filterStudents'])->name('filter.students');
 
     Route::get('/deleteGrade/{id}', [GradeController::class, 'delete'])->name('delete.grade');
+
     Route::post('/updateGrade/{id}', [GradeController::class, 'update'])->name('update.grade');
+
+    Route::get('/students/pdf', [StudentController::class, 'generatePDF'])->name('students.pdf');
+
+    Route::get('/teachers/pdf', [TeacherController::class, 'generatePDF'])->name('students.pdf');
+    
 });
 
 Route::middleware(['auth', 'Teacher'])->group(function () {
@@ -162,7 +168,7 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
     Route::get('/take-quiz', [QuizController::class, 'MyQuiz']);
 
-    Route::get('/view-quiz-questions/{id}', [QuizController::class, 'ViewQuizQuestions']);
+    Route::get('/view-quiz-questions/{id}', [QuizController::class, 'ViewQuizQuestions'])->name('view-questions');
 
     Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
 

@@ -31,6 +31,7 @@
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Teachers</h6>
+                            <a href="/teachers/pdf" class="btn btn-success mb-3">Print</a>
                             <input type="text" id="search-teacher" class="form-control mb-4"
                                 placeholder="Search by Teacher Name">
                             <table class="table">

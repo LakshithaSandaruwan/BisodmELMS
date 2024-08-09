@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment;
 use App\Models\Student;
+// use Barryvdh\DomPDF\PDF;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StudentController extends Controller
 {
@@ -77,5 +79,14 @@ class StudentController extends Controller
         $students = Enrollment::where('subject_id', $id)->join('students', 'enrollments.student_id', '=', 'students.id')->get();
 
         return view('Teacher.ClassStudents', compact('students'));
+    }
+
+    public function generatePDF()
+    {
+        $students = Student::all(); // Fetch the students or pass it from wherever necessary
+
+        $pdf = PDF::loadView('pdf.student', compact('students'));
+
+        return $pdf->download('student.pdf'); // Download the generated PDF
     }
 }

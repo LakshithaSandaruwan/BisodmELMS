@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Teacher;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\TeacherPayment;
@@ -14,6 +13,7 @@ use App\Mail\TeacherPasswordEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TeacherController extends Controller
 {
@@ -157,5 +157,14 @@ class TeacherController extends Controller
         $teachers = Teacher::where('full_name', 'LIKE', "%{$query}%")->get();
 
         return response()->json($teachers);
+    }
+
+    public function generatePDF()
+    {
+        $teachers = Teacher::all(); // Fetch the students or pass it from wherever necessary
+
+        $pdf = PDF::loadView('pdf.teacher', compact('teachers'));
+
+        return $pdf->download('teacher.pdf'); // Download the generated PDF
     }
 }
