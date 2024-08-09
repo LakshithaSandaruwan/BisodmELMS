@@ -32,20 +32,20 @@
                                 @csrf
                                 <!-- Success Message -->
                                 @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
                                 @endif
 
                                 <!-- Validation Errors -->
                                 @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                                 @endif
                                 <div class="row justify-content-center">
                                     <div class="col-10">
@@ -109,7 +109,7 @@
 
                                         <div class="row mt-3">
                                             <div class="col-10">
-                                                <label for="study qulification" class="fw-bold">Study Qulification
+                                                <label for="study qulification" class="fw-bold">Study Qulification <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="text" name="study_qulification" id="study_qulification"
                                                     class="form-control"

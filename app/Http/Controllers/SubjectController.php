@@ -80,6 +80,7 @@ class SubjectController extends Controller
             )
             ->where('grades.id', $gradeId)
             ->where('batches.id', $batchId)
+            ->where('subject_mappings.IsEnd', false)
             ->get();
 
         return response()->json($subjectMappings);
@@ -96,12 +97,11 @@ class SubjectController extends Controller
             $batchDetail = SubjectMapping::where('batchId', $Class->batchId)
                 ->where('IsEnd', false)->get();
 
-            if ($batchDetail==null){
-                $batch = Batch::find($Class->batchId);
-
-                $batch->IsStillEnrolling = false;
-                $batch->save();
-            }
+                if ($batchDetail->count() == 0) {
+                    $batch = Batch::find($Class->batchId);
+                    $batch->IsStillEnrolling = false;
+                    $batch->save();
+                }
 
             return redirect()->back()->with('success', 'Class ended successfully');
         } else {
