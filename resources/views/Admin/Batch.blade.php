@@ -82,6 +82,7 @@
                                         <th scope="col">Batch Start date</th>
                                         <th scope="col">Batch End date</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -98,6 +99,7 @@
                                                     <span class="badge bg-danger">Ended</span>
                                                 @endif
                                             </td>
+                                            
                                         </tr>
                                     @endforeach
                                 </tbody>

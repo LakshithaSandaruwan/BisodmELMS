@@ -80,7 +80,7 @@
                                 <tbody>
                                     @foreach ($grades as $grade)
                                         <tr>
-                                            <th scope="row">{{ $grade->id }}</th>
+                                            <td scope="row">{{ $grade->id }}</td>
                                             <td>Grade {{ $grade->Grade }}</td>
                                             <td>
                                                 <a href="#" class="edit-grade-btn" data-id="{{ $grade->id }}"

@@ -26,13 +26,13 @@ class TeacherController extends Controller
             'teacher_fullname' => 'required|string|max:255',
             'teacher_gender' => 'required|string|in:Male,Female',
             'teacher_birthday' => 'required|date',
-            'T_NIC' => 'required|string|max:12', // Adjust max length as per your needs
-            'study_qulification' => 'nullable|string|max:255',
-            'T_number' => 'required|string|max:15',
-            'T_housenumber' => 'nullable|string|max:255',
-            'T_streetaddress' => 'nullable|string|max:255',
-            'T_district' => 'nullable|string|max:255',
-            'T_province' => 'nullable|string|max:255',
+            'T_NIC' => 'required|string|max:10', // Adjust max length as per your needs
+            'study_qulification' => 'required|string|max:255',
+            'T_number' => 'required|string|max:10',
+            'T_housenumber' => 'required|string|max:255',
+            'T_streetaddress' => 'required|string|max:255',
+            'T_district' => 'required|string|max:255',
+            'T_province' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
 
@@ -40,7 +40,7 @@ class TeacherController extends Controller
 
         $user = new User();
         $user->name = $request->input('teacher_Lastname');
-        $user->email = $request->input('T_email');
+        $user->email = $request->input('email');
         $user->email_verified_at = Carbon::now();
         $user->password = Hash::make($randomPassword);
         $user->user_role = 2;

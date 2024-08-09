@@ -34,7 +34,7 @@
                     aria-hidden="true"></i>Subjects</a>
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="/subject" class="dropdown-item">Subject manage</a>
-                <a href="setsubjects" class="dropdown-item">Set subjects</a>
+                <a href="setsubjects" class="dropdown-item">Subject Mapping</a>
             </div>
         </div>
     </div>
