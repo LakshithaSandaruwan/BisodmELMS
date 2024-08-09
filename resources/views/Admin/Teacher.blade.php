@@ -70,7 +70,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" name="teacher_initial"
                                                             id="teacher_initial" class="form-control"
-                                                            placeholder="ex, D.P">
+                                                            placeholder="ex, D.P" value="{{ old('teacher_initial') }}">
                                                     </div>
 
                                                     <div class="col-6">
@@ -78,7 +78,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" name="teacher_Lastname"
                                                             id="teacher_Lastname" class="form-control"
-                                                            placeholder="ex, Ranjani">
+                                                            placeholder="ex, Ranjani" value="{{ old('teacher_Lastname') }}">
                                                     </div>
                                                 </div>
 
@@ -88,7 +88,7 @@
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" name="teacher_fullname"
                                                             id="teacher_fullname" class="form-control"
-                                                            placeholder="ex, Deva Pushpa Ranjani">
+                                                            placeholder="ex, Deva Pushpa Ranjani" value="{{ old('teacher_fullname') }}">
                                                     </div>
                                                 </div>
 
@@ -99,8 +99,8 @@
                                                         <select name="teacher_gender" id="teacher_gender"
                                                             class="form-control">
                                                             <option value="">Select Gender</option>
-                                                            <option value="Male">Male</option>
-                                                            <option value="Female">Female</option>
+                                                            <option value="Male" value="{{ old('teacher_gender') }}">Male</option>
+                                                            <option value="Female" value="{{ old('teacher_gender') }}">Female</option>
                                                         </select>
                                                     </div>
 
@@ -108,7 +108,7 @@
                                                         <label for="teacher_bday" class="fw-bold">Birthday <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="date" name="teacher_birthday"
-                                                            id="teacher_birthday" class="form-control">
+                                                            id="teacher_birthday" class="form-control" value="{{ old('teacher_birthday') }}">
                                                     </div>
                                                 </div>
 
@@ -117,7 +117,7 @@
                                                         <label for="T_NIC" class="fw-bold">NIC Number <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" name="T_NIC" id="T_NIC"
-                                                            class="form-control" placeholder="ex, 199734503580">
+                                                            class="form-control" placeholder="ex, 199734503580" value="{{ old('T_NIC') }}">
                                                     </div>
                                                 </div>
 
@@ -128,7 +128,7 @@
                                                         </label>
                                                         <input type="text" name="study_qulification"
                                                             id="study_qulification" class="form-control"
-                                                            placeholder="ex, Rajarata University Management Degree">
+                                                            placeholder="ex, Rajarata University Management Degree" value="{{ old('study_qulification') }}">
                                                     </div>
                                                 </div>
 
@@ -142,13 +142,13 @@
                                                         <label for="T_contact" class="fw-bold">Contact Number <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="number" name="T_number" id="T_number"
-                                                            class="form-control" placeholder="ex, 0779868982">
+                                                            class="form-control" placeholder="ex, 0779868982" value="{{ old('T_number') }}">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="T_email" class="fw-bold">E-mail <span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="email" name="T_email" id="T_email"
-                                                            class="form-control" placeholder="ex, pushpa@gmail.com">
+                                                        <input type="email" name="email" id="T_email"
+                                                            class="form-control" placeholder="ex, pushpa@gmail.com" value="{{ old('email') }}">
                                                     </div>
                                                 </div>
 
@@ -161,14 +161,14 @@
                                                     <div class="col-3">
                                                         <label for="T_housenumber" class="fw">House Number</label>
                                                         <input type="text" name="T_housenumber" id="T_housenumber"
-                                                            placeholder="ex, 215/A">
+                                                            placeholder="ex, 215/A" value="{{ old('T_housenumber') }}">
                                                     </div>
                                                     <div class="col-6">
                                                         <label for="T_streetaddress" class="fw">Street Address
                                                             <span class="text-danger">*</span></label>
                                                         <input type="text" name="T_streetaddress"
                                                             id="T_streetaddress" class="form-control"
-                                                            placeholder="ex, Oruthota Road">
+                                                            placeholder="ex, Oruthota Road" value="{{ old('T_streetaddress') }}">
                                                     </div>
                                                 </div>
                                                 <div class="row mt-3">
@@ -176,7 +176,7 @@
                                                         <label for="T_district" class="fw-bold">District <span
                                                                 class="text-danger">*</span></label>
                                                         <input type="text" name="T_district" id="T_district"
-                                                            class="form-control" placeholder="ex, Gampaha">
+                                                            class="form-control" placeholder="ex, Gampaha" value="{{ old('T_district') }}">
                                                     </div>
                                                     <div class="col-4">
                                                         <label for="T_province" class="fw-bold">Province <span
@@ -184,22 +184,22 @@
                                                         <select name="T_province" id="T_province"
                                                             class="form-control">
                                                             <option value="">Select Province</option>
-                                                            <option value="Central Province">Central Province</option>
-                                                            <option value="Eastern Province">Eastern Province</option>
-                                                            <option value="North Central Province">North Central
+                                                            <option value="Central Province" value="{{ old('T_province') }}">Central Province</option>
+                                                            <option value="Eastern Province" value="{{ old('T_province') }}">Eastern Province</option>
+                                                            <option value="North Central Province" value="{{ old('T_province') }}">North Central
                                                                 Province
                                                             </option>
-                                                            <option value="Northern Province">Northern Province
+                                                            <option value="Northern Province" value="{{ old('T_province') }}">Northern Province
                                                             </option>
-                                                            <option value="North Western Province">North Western
+                                                            <option value="North Western Province" value="{{ old('T_province') }}">North Western
                                                                 Province
                                                             </option>
-                                                            <option value="Sabaragamuwa Province">Sabaragamuwa Province
+                                                            <option value="Sabaragamuwa Province" value="{{ old('T_province') }}">Sabaragamuwa Province
                                                             </option>
-                                                            <option value="Southern Province">Southern Province
+                                                            <option value="Southern Province" value="{{ old('T_province') }}">Southern Province
                                                             </option>
-                                                            <option value="Uva Province">Uva Province</option>
-                                                            <option value="Western Province">Western Province</option>
+                                                            <option value="Uva Province" value="{{ old('T_province') }}">Uva Province</option>
+                                                            <option value="Western Province" value="{{ old('T_province') }}">Western Province</option>
                                                         </select>
                                                     </div>
                                                 </div>

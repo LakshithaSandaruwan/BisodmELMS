@@ -140,10 +140,10 @@ class ClassController extends Controller
 
     public function SubmitHomeworks(Request $request)
     {
-        
+
         $userId = Auth::id();
         $studentId = Student::where('user_id', $userId)->pluck('id')->first();
-        
+
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $filePath = $file->store('homeworks_submit', 'public');
@@ -159,5 +159,26 @@ class ClassController extends Controller
         }
 
         return redirect()->back()->with('error', 'Submission failed');
+    }
+
+    public function ViewLinks()
+    {
+        $userId = Auth::id();
+        $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
+        $mappingIds = SubjectMapping::where('teacher_id', $teacherId)->select('id')->get();
+
+        $links = ZoomLink::whereIn('zoom_links.subject_id', $mappingIds)
+            ->join('subject_mappings', 'zoom_links.subject_id', '=', 'subject_mappings.id')
+            ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
+            ->select('zoom_links.*', 'subject_mappings.*', 'subjects.*') // Optional: Select specific columns
+            ->get();
+
+
+        return view('Teacher.ViewLinks', compact('links'));
+    }
+
+    public function RemoveHomework($id){
+        Homework::destroy($id);
+        return redirect()->back()->with('success', 'Homework Delete successfully.');
     }
 }

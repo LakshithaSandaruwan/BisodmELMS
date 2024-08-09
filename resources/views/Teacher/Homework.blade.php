@@ -109,16 +109,7 @@
                                                 <td> {{ $homework->deadline }} </td>
                                                 <td> <a href="viewhomeworksubmision/{{$homework->id}}">{{ $homework->submissions_count }}</a> </td>
                                                 <td class="text-end">
-                                                    <div class="drodown">
-                                                        <a data-bs-toggle="dropdown" href="#" class="btn p-1"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-bars" aria-hidden="true"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a href="#" class="dropdown-item">Edit</a>
-                                                            <a href="#" class="dropdown-item">Remove</a>
-                                                        </div>
-                                                    </div>
+                                                    <a href="/RemoveHomework/{{$homework->id}}">REMOVE</a>
                                                 </td>
                                             </tr>
                                         @endforeach

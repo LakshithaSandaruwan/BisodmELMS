@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MyClassesController;
 use App\Http\Controllers\EnrollmentController;
+use App\Models\SubjectMapping;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,9 +92,20 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('/allteachers', [TeacherController::class, 'AllTeachers'])->name('allteachers');
 
+    Route::get('/teacherSalaries', [TeacherController::class, 'TeacherSalary'])->name('teacherSalaries');
+
+    Route::get('/allstudents', [StudentController::class, 'AllStudents'])->name('AllStudents');
+
     Route::post('/salarypayment', [TeacherController::class, 'SalaryPay']);
 
     Route::get('/admin/backup', [BackupController::class, 'createBackup'])->name('admin.backup');
+
+    Route::get('/filter-teachers', [TeacherController::class, 'filterTeachers'])->name('filter.teachers');
+
+    Route::get('/filter-students', [StudentController::class, 'filterStudents'])->name('filter.students');
+
+    Route::get('/deleteGrade/{id}', [GradeController::class, 'delete'])->name('delete.grade');
+    Route::post('/updateGrade/{id}', [GradeController::class, 'update'])->name('update.grade');
 });
 
 Route::middleware(['auth', 'Teacher'])->group(function () {
@@ -118,6 +130,16 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
     Route::post('/save-question', [QuizController::class, 'saveQuestion'])->name('saveQuestion');
 
     Route::get('/add-questions/{quizid}', [QuizController::class, 'AddQuestions'])->name('add-questions');
+
+    Route::get('/BatchStudents/{id}', [StudentController::class, 'BatchStudents']);
+
+    Route::get('/ViewZoomLinks', [ClassController::class, 'ViewLinks']);
+
+    Route::get('/RemoveHomework/{id}', [ClassController::class, 'RemoveHomework']);
+
+    Route::get('/endClass/{id}', [SubjectController::class, 'EndTheClass']);
+    
+    
 });
 
 Route::middleware(['auth', 'Student'])->group(function () {
@@ -134,7 +156,7 @@ Route::middleware(['auth', 'Student'])->group(function () {
     Route::get('/myhomeworks', [MyClassesController::class, 'MyHomeWorks']);
 
     Route::get('/MyCalander', [MyClassesController::class, 'Calander']);
-    
+
     Route::post('/submithomework', [ClassController::class, 'SubmitHomeworks']);
 
     Route::get('/take-quiz', [QuizController::class, 'MyQuiz']);
@@ -142,6 +164,9 @@ Route::middleware(['auth', 'Student'])->group(function () {
     Route::get('/view-quiz-questions/{id}', [QuizController::class, 'ViewQuizQuestions']);
 
     Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
+
+
+    
 });
 
 

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>All Teachers</title>
+    <title>All Students</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -13,13 +13,6 @@
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
-
         <div class="sidebar pe-4 pb-3">
             @include('Admin.Include.Sidebar')
         </div>
@@ -31,27 +24,35 @@
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Teachers</h6>
-                            <input type="text" id="search-teacher" class="form-control mb-4"
+                            <input type="text" id="search-studnts" class="form-control mb-4"
                                 placeholder="Search by Teacher Name">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">NIC</th>
-                                        <th scope="col">Email</th>
+                                        <th scope="col">Full Name</th>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Birthday</th>
+                                        <th scope="col">School</th>
                                         <th scope="col">Address</th>
+                                        <th scope="col">Contact</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Parent Contact</th>
                                     </tr>
                                 </thead>
                                 <tbody id="teacher-table-body">
-                                    @foreach ($teachers as $teacher)
+                                    @foreach ($students as $student)
                                         <tr>
-                                            <th scope="row">{{ $teacher->id }}</th>
-                                            <td>{{ $teacher->full_name }} </td>
-                                            <td>{{ $teacher->nic }}</td>
-                                            <td>{{ $teacher->email }}</td>
-                                            <td>{{ $teacher->houseNumber }}, {{ $teacher->street }},
-                                                {{ $teacher->district }}</td>
+                                            <th scope="row">{{ $student->id }}</th>
+                                            <td>{{ $student->FullName }} </td>
+                                            <td>{{ $student->Gender }}</td>
+                                            <td>{{ $student->birthday }}</td>
+                                            <td>{{ $student->school }} </td>
+                                            <td>{{ $student->houseNumber }}, {{ $student->street }},
+                                                {{ $student->district }}</td>
+                                            <td>{{ $student->contactNumber }}</td>
+                                            <td>{{ $student->email }}</td>
+                                            <td>{{ $student->PerentContact }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -67,11 +68,11 @@
 
     <script>
         $(document).ready(function() {
-            $('#search-teacher').on('keyup', function() {
+            $('#search-studnts').on('keyup', function() {
                 var query = $(this).val();
 
                 $.ajax({
-                    url: "{{ route('filter.teachers') }}", // Your route to fetch filtered teachers
+                    url: "{{ route('filter.students') }}", // Your route to fetch filtered teachers
                     type: "GET",
                     data: {
                         'query': query
@@ -79,15 +80,19 @@
                     success: function(data) {
                         console.log(data);
                         $('#teacher-table-body').html(''); // Clear the existing table body
-                        $.each(data, function(key, teacher) {
+                        $.each(data, function(key, student) {
                             $('#teacher-table-body').append(
                                 '<tr>' +
-                                '<th scope="row">' + teacher.id + '</th>' +
-                                '<td>' + teacher.full_name + '</td>' +
-                                '<td>' + teacher.nic + '</td>' +
-                                '<td>' + teacher.email + '</td>' +
-                                '<td>' + teacher.houseNumber + ', ' + teacher
-                                .street + ', ' + teacher.district + '</td>' +
+                                '<th scope="row">' + student.id + '</th>' +
+                                '<td>' + student.FullName + '</td>' +
+                                '<td>' + student.Gender + '</td>' +
+                                '<td>' + student.birthday + '</td>' +
+                                '<td>' + student.school + '</td>' +
+                                '<td>' + student.houseNumber + ', ' + student
+                                .street + ', ' + student.district + '</td>' +
+                                '<td>' + student.contactNumber + '</td>' +
+                                '<td>' + student.email + '</td>' +
+                                '<td>' + student.PerentContact + '</td>' +
                                 '</tr>'
                             );
                         });

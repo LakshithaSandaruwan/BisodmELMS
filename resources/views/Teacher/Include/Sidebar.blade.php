@@ -18,5 +18,6 @@
         <a href="/ongoingclasses" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Ongoing Classes</a>
         <a href="/homeworks" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Homeworks</a>
         <a href="/batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Quizes</a>
+        <a href="/ViewZoomLinks" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Access Classes</a>
     </div>
 </nav>

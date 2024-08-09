@@ -29,11 +29,11 @@ class TeacherController extends Controller
             'T_NIC' => 'required|string|max:12', // Adjust max length as per your needs
             'study_qulification' => 'nullable|string|max:255',
             'T_number' => 'required|string|max:15',
-            'T_email' => 'required|email|max:255',
             'T_housenumber' => 'nullable|string|max:255',
             'T_streetaddress' => 'nullable|string|max:255',
             'T_district' => 'nullable|string|max:255',
             'T_province' => 'nullable|string|max:255',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
 
         $randomPassword = Str::random(12);
@@ -55,7 +55,7 @@ class TeacherController extends Controller
         $teacher->nic = $request->input('T_NIC');
         $teacher->study_qulification = $request->input('study_qulification');
         $teacher->contact = $request->input('T_number');
-        $teacher->email = $request->input('T_email');
+        $teacher->email = $request->input('email');
         $teacher->houseNumber = $request->input('T_housenumber');
         $teacher->street = $request->input('T_streetaddress');
         $teacher->district = $request->input('T_district');
@@ -95,6 +95,21 @@ class TeacherController extends Controller
         return view('Admin.AllTeachers', compact('teachers'));
     }
 
+    public function TeacherSalary()
+    {
+        $teachers = Teacher::all();
+
+        $teachers = Teacher::with(['subjectMappings.enrollments.payments', 'payments'])->get();
+
+        foreach ($teachers as $teacher) {
+            $teacher->total_students = $teacher->calculateTotalStudents();
+            $teacher->has_payments = $teacher->hasPayments();
+        }
+
+
+        return view('Admin.Salaries', compact('teachers'));
+    }
+
     public function SalaryPay(Request $request, PDF $pdf)
     {
         $validator = Validator::make($request->all(), [
@@ -104,11 +119,11 @@ class TeacherController extends Controller
             'insitutepay' => 'required|numeric',
             'tax' => 'required|numeric',
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-    
+
         // Save teacher payment
         $payment = new TeacherPayment();
         $payment->teacher_id = $request->teacherId;
@@ -118,7 +133,7 @@ class TeacherController extends Controller
         $payment->insitute_pay = $request->insitutepay;
         $payment->taxes = $request->tax;
         $payment->save();
-    
+
         // Fetch teacher and prepare salary details
         $teacher = Teacher::findOrFail($request->teacherId);
         $salaryDetails = [
@@ -129,10 +144,18 @@ class TeacherController extends Controller
             'taxes' => $request->tax,
             'total' => $request->gross + $request->bonus + $request->insitutepay - $request->tax,
         ];
-    
+
         // Send email with PDF attachment
         Mail::to($teacher->email)->send(new TeacherSalaryMail($teacher, $salaryDetails, $pdf));
 
         return redirect()->route('allteachers');
+    }
+
+    public function filterTeachers(Request $request)
+    {
+        $query = $request->get('query');
+        $teachers = Teacher::where('full_name', 'LIKE', "%{$query}%")->get();
+
+        return response()->json($teachers);
     }
 }

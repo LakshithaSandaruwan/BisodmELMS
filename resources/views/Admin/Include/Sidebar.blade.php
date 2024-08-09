@@ -21,10 +21,11 @@
             <div class="dropdown-menu bg-transparent border-0">
                 <a href="/teacherregistration" class="dropdown-item">Registration</a>
                 <a href="/allteachers" class="dropdown-item">All teachers</a>
+                <a href="/teacherSalaries" class="dropdown-item">Salaries</a>
             </div>
         </div>
 
-        <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students</a>
+        <a href="/allstudents" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students</a>
         <a href="batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Batches</a>
         <a href="grades" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Grades</a>
 

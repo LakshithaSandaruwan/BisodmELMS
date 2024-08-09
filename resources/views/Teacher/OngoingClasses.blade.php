@@ -87,6 +87,7 @@
                                             <th>Batch</th>
                                             <th>Grade</th>
                                             <th>Subject</th>
+                                            <th>Class End</th>
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
@@ -104,6 +105,7 @@
                                                 <td> <span
                                                         class="d-inline-block align-middle">{{ $class->subject_name }}</span>
                                                 </td>
+                                                <td><a href="/endClass/{{$class->id}}">End the Class</a></td>
                                                 <td class="text-end">
                                                     <div class="drodown">
                                                         <a data-bs-toggle="dropdown" href="#" class="btn p-1"
@@ -111,7 +113,7 @@
                                                             <i class="fa fa-bars" aria-hidden="true"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a href="#" class="dropdown-item">View Students</a>
+                                                            <a href="/BatchStudents/{{ $class->id }}" class="dropdown-item">View Students</a>
                                                             <a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#homeworkmodel" class="dropdown-item"
                                                                 data-subject-id="{{ $class->id }}">Add Homeworks</a>

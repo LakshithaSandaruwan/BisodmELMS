@@ -84,4 +84,28 @@ class SubjectController extends Controller
 
         return response()->json($subjectMappings);
     }
+
+    public function EndTheClass($id)
+    {
+        $Class = SubjectMapping::find($id);
+
+        if ($Class) {
+            $Class->IsEnd = true;
+            $Class->save();
+
+            $batchDetail = SubjectMapping::where('batchId', $Class->batchId)
+                ->where('IsEnd', false)->get();
+
+            if ($batchDetail==null){
+                $batch = Batch::find($Class->batchId);
+
+                $batch->IsStillEnrolling = false;
+                $batch->save();
+            }
+
+            return redirect()->back()->with('success', 'Class ended successfully');
+        } else {
+            return redirect()->back()->with('error', 'something went wrong');
+        }
+    }
 }

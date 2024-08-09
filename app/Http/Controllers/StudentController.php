@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Enrollment;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -56,5 +57,25 @@ class StudentController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Student registered successfully!');
+    }
+
+    public function AllStudents()
+    {
+        $students = Student::all();
+
+        return view('Admin.AllStudents', compact('students'));
+    }
+
+    public function filterStudents(Request $request){
+        $query = $request->get('query');
+        $teachers = Student::where('FullName', 'LIKE', "%{$query}%")->get();
+
+        return response()->json($teachers);
+    }
+
+    public function BatchStudents($id){
+        $students = Enrollment::where('subject_id', $id)->join('students', 'enrollments.student_id', '=', 'students.id')->get();
+
+        return view('Teacher.ClassStudents', compact('students'));
     }
 }
