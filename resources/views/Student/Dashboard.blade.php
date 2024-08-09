@@ -107,15 +107,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-calendar-check fa-3x text-primary"></i>
-                            <div class="ms-3">
-                                <p class="mb-2">Attendance Rate</p>
-                                <h6 class="mb-0">90%</h6>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -124,69 +115,6 @@
                     <div class="col-md-12">
                         <h2 class="text-center">Academic Performance</h2>
                         <div id="academic_performance_chart" style="width: 100%; height: 500px;"></div>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Attendance Record</h2>
-                        <div id="attendance_record_chart" style="width: 100%; height: 500px;"></div>
-                    </div>
-                </div>
-
-                <div class="row mt-5 ">
-                    <div class="col-md-12 bg-success">
-                        <h2 class="text-center mt-3 mb-3">Upcoming Deadlines</h2>
-                        <ul class="list-group">
-                            @foreach ($upcomingDeadlines as $upcomingDeadline)
-                            <li class="list-group-item bg-warning text-light fw-bold">Homework : {{$upcomingDeadline->subject_name}} - Due {{$upcomingDeadline->deadline}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-
-                
-
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <h2 class="text-center">Timetable</h2>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>9:00 - 10:00</th>
-                                    <th>10:00 - 11:00</th>
-                                    <th>11:00 - 12:00</th>
-                                    <th>12:00 - 1:00</th>
-                                    <th>1:00 - 2:00</th>
-                                    <th>2:00 - 3:00</th>
-                                    <th>3:00 - 4:00</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Monday</td>
-                                    <td>Math</td>
-                                    <td>Science</td>
-                                    <td>History</td>
-                                    <td>Lunch Break</td>
-                                    <td>English</td>
-                                    <td>Art</td>
-                                    <td>Physical Education</td>
-                                </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td>Science</td>
-                                    <td>Math</td>
-                                    <td>Art</td>
-                                    <td>Lunch Break</td>
-                                    <td>History</td>
-                                    <td>English</td>
-                                    <td>Computer Science</td>
-                                </tr>
-                                <!-- Add more rows for other days as needed -->
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

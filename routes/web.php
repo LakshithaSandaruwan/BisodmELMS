@@ -139,6 +139,7 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
 
     Route::get('/endClass/{id}', [SubjectController::class, 'EndTheClass']);
     
+    Route::get('/ViewQuizes', [QuizController::class, 'viewQuizes']);
     
 });
 

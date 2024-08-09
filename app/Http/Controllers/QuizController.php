@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isNull;
 use App\Models\QuestionsStudentAnswers;
+use App\Models\SubjectMapping;
+use App\Models\Teacher;
 
 class QuizController extends Controller
 {
@@ -158,9 +160,9 @@ class QuizController extends Controller
         $quiz = Quiz::with(['questions.answers'])->findOrFail($quizId);
 
         $studentAnswers = QuestionsStudentAnswers::where('quiz_id', $quizId)
-        ->where('student_id', $studentId)
-        ->get()
-        ->keyBy('question_id');
+            ->where('student_id', $studentId)
+            ->get()
+            ->keyBy('question_id');
 
         if ($answersCount > 0) {
             $correctAnswerPercentage = ($CorrectAnswers / $answersCount) * 100;
@@ -173,7 +175,7 @@ class QuizController extends Controller
     {
         $userId = Auth::id();
         $studentId = Student::where('user_id', $userId)->pluck('id')->first();
-        
+
         $request->validate([
             'quiz_id' => 'required|exists:quizzes,id',
             'answers' => 'required|array',
@@ -189,5 +191,17 @@ class QuizController extends Controller
         }
 
         return redirect()->route('showQuiz', $request->input('quiz_id'))->with('success', 'Quiz submitted successfully!');
+    }
+
+    public function viewQuizes()
+    {
+        $userId = Auth::id();
+        $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
+        $subjects = SubjectMapping::where('teacher_id', $teacherId)->pluck('id'); 
+
+        $quizes = Quiz::whereIn('subject_id', $subjects)->get(); 
+
+        return view('Teacher.Quizes', compact('quizes'));
+
     }
 }
