@@ -115,10 +115,6 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'Teacher'])->group(function () {
-    Route::get('/teacher', function () {
-        return view('Teacher.Dashboard');
-    });
-
     Route::get('/ongoingclasses', [ClassController::class, 'ViewClasses']);
 
     Route::post('/savehomeworks', [ClassController::class, 'savehomework']);
@@ -154,7 +150,7 @@ Route::middleware(['auth', 'Student'])->group(function () {
         return view('Student.Dashboard');
     });
 
-    Route::get('/enrollment', [EnrollmentController::class, 'ViewNewEnrolment']);
+    Route::get('/enrollment', [EnrollmentController::class, 'ViewNewEnrolment'])->name('view-enrollment');
 
     Route::get('/subjects-by-grade/{gradeId}/{batchId}', [EnrollmentController::class, 'getSubjectsByGrade']);
 
@@ -180,6 +176,6 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
 //payments
 Route::get('/payment/page/{id}', [PaymentController::class, 'handlePayment'])->name('payment.handle');
-Route::get('/payment/success', [PaymentController::class, 'paymentSuccess']);
+Route::post('/payment/success', [PaymentController::class, 'paymentSuccess']);
 Route::get('/payment/cancel', [PaymentController::class, 'paymentCancel']);
 Route::post('/payment/notify', [PaymentController::class, 'paymentNotify']);

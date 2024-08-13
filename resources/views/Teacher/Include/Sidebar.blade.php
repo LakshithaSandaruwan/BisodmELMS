@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="navbar-nav w-100">
-        <a href="/teacher" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+        <a href="/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <a href="/ongoingclasses" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Ongoing Classes</a>
         <a href="/homeworks" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Homeworks</a>
         <a href="/ViewQuizes" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Quizes</a>

@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment;
 use Carbon\Carbon;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\Enrollment;
+use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use App\Models\StudentPayment;
+use App\Models\SubjectMapping;
+use App\Models\TeacherPayment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Termwind\Components\Dd;
 
 class HomeController extends Controller
 {
@@ -92,7 +94,49 @@ class HomeController extends Controller
 
             return view('Admin.Dashboard', compact('currentMonthTeachersData', 'lastMonthTeachersData', 'teachers', 'students', 'totalAmountforCorrentMonth', 'totalAmount', 'currentMonthData', 'lastMonthData', 'popularSubjects'));
         } else if ($userData->user_role == 2) {
-            return view('Teacher.Dashboard');
+
+            // Get the ID of the logged-in teacher
+            $userId = Auth::id();
+            $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
+
+            // Get subject mappings for the logged-in teacher
+            $subjectMappings = SubjectMapping::where('teacher_id', $teacherId)->get();
+
+            // Initialize an array to hold subject names and enrollment counts
+            $enrollments = [];
+
+            foreach ($subjectMappings as $mapping) {
+                // Get subject name
+                $subjectName = $mapping->subject->subject_name;
+                // $gradeName = $mapping->grade->Grade;
+
+                $gradeName = $mapping->grade ? $mapping->grade->Grade : 'Unknown Grade';
+
+                // Combine grade and subject name
+                $gradeSubjectName = "Grade {$gradeName} {$subjectName}";
+
+                // Get enrollment count for the subject
+                $count = Enrollment::where('subject_id', $mapping->id)->count();
+
+                // Add to the enrollments array
+                $enrollments[] = [$gradeSubjectName, $count];
+            }
+
+            $payments = TeacherPayment::selectRaw('month, sum(basic) as total_basic')
+                ->groupBy('month')->where('teacher_id', $teacherId)
+                ->get();
+
+
+            $paymentsData = [];
+            foreach ($payments as $payment) {
+
+                $paymentsData[] = [
+                    'month' => $payment->month,
+                    'total_basic' => $payment->total_basic,
+                ];
+            }
+
+            return view('Teacher.Dashboard', compact('enrollments', 'paymentsData'));
         } else if ($userData->user_role == 3) {
 
             $authId = Auth::id();
@@ -149,7 +193,7 @@ class HomeController extends Controller
                     )
                     ->get();
 
-                    $timetable = DB::table('enrollments as e')
+                $timetable = DB::table('enrollments as e')
                     ->join('subject_mappings as sm', 'e.subject_id', '=', 'sm.id')
                     ->join('subjects as s', 'sm.subject_id', '=', 's.id')
                     ->join('zoom_links as zl', 'sm.id', '=', 'zl.subject_id')
@@ -162,7 +206,7 @@ class HomeController extends Controller
                     )
                     ->where('e.student_id', $studentId)
                     ->get();
-        
+
 
                 return view('Student.Dashboard', compact('results', 'enrollcount', 'upcomingDeadlines'));
             } else {

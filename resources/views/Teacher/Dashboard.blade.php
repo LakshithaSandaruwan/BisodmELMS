@@ -8,6 +8,59 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     @include('CDNs.AdminCDN')
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {
+            'packages': ['corechart']
+        });
+        google.charts.setOnLoadCallback(drawCharts);
+
+        function drawCharts() {
+            // Student Enrollments Chart
+            var enrollmentData = google.visualization.arrayToDataTable([
+                ['Subject', 'Number of Students'],
+                @foreach ($enrollments as $enrollment)
+                    ['{{ $enrollment[0] }}', {{ $enrollment[1] }}],
+                @endforeach
+            ]);
+
+            var enrollmentOptions = {
+                title: 'Student Enrollments by Subject',
+                hAxis: {
+                    title: 'Subject'
+                },
+                vAxis: {
+                    title: 'Number of Students'
+                },
+                legend: 'none'
+            };
+
+            var enrollmentChart = new google.visualization.ColumnChart(document.getElementById('enrollment_chart_div'));
+            enrollmentChart.draw(enrollmentData, enrollmentOptions);
+
+            // Teacher Payments Chart
+            var paymentData = google.visualization.arrayToDataTable([
+                ['Month', 'Basic Salary'],
+                @foreach ($paymentsData as $payment)
+                    ['{{ $payment['month'] }}', {{ $payment['total_basic'] }}],
+                @endforeach
+            ]);
+
+            var paymentOptions = {
+                title: 'Teacher Basic Salary by Month',
+                hAxis: {
+                    title: 'Month'
+                },
+                vAxis: {
+                    title: 'Basic Salary'
+                },
+                legend: 'none'
+            };
+
+            var paymentChart = new google.visualization.ColumnChart(document.getElementById('payment_chart_div'));
+            paymentChart.draw(paymentData, paymentOptions);
+        }
+    </script>
 </head>
 
 <body>
@@ -25,6 +78,12 @@
 
         <div class="content">
             @include('Teacher.Include.Navbar')
+
+            <!-- Student Enrollments Chart -->
+            <div id="enrollment_chart_div" style="width: 900px; height: 500px;"></div>
+
+            <!-- Teacher Payments Chart -->
+            <div id="payment_chart_div" style="width: 900px; height: 500px; margin-top: 20px;"></div>
         </div>
 
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

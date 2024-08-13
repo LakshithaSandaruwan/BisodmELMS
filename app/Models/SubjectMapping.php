@@ -28,4 +28,10 @@ class SubjectMapping extends Model
     {
         return $this->hasMany(ZoomLink::class);
     }
+
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class);
+    }
 }

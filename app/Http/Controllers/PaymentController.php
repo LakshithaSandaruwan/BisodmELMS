@@ -73,7 +73,7 @@ class PaymentController extends Controller
 
     public function paymentSuccess(Request $request)
     {
-        $enrolmentId = $request->query('order_id');
+        $enrolmentId = $request->enrolment_id;
 
         $enrollment = Enrollment::find($enrolmentId);
 
@@ -91,7 +91,7 @@ class PaymentController extends Controller
             return response()->json(['error' => 'Enrollment not found'], 404);
         }
 
-        return 'Payment Success for order_id: ' . $enrolmentId;
+        return redirect()->route('view-enrollment')->with('success', 'Payment processed successfully!');
     }
 
     public function paymentNotify(Request $request)
