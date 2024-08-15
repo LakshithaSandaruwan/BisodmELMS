@@ -149,7 +149,7 @@
                                                         @if ($enrolmentDetail->days_remaining < 0)
                                                             <p class="text-danger fw-bold">Overdue by
                                                                 {{ abs($enrolmentDetail->days_remaining) }} days.<br>
-                                                                Click <a href="/payment">Here</a> to payment</p>
+                                                                Click <a href="/payment/{{$enrolmentDetail->id}}">Here</a> to payment</p>
                                                         @else
                                                             <p class="text-success fw-bold">
                                                                 {{ $enrolmentDetail->days_remaining }} days remaining

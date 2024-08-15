@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Student;
+// use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use App\Models\StudentPayment;
+use Illuminate\Support\Facades\DB;
+
 
 class PaymentController extends Controller
 {
@@ -15,7 +19,7 @@ class PaymentController extends Controller
         $request = Enrollment::where('id', $id)->first();
         $student = Student::where('id', $request->student_id)->first();
 
-        
+
         $merchant_id = env('PAYHERE_MERCHANT_ID');
         $return_url = url('/payment/success');
         $cancel_url = url('/payment/cancel');
@@ -24,12 +28,12 @@ class PaymentController extends Controller
         $order_id = $request->id;
         $items = 'monthly class fees';
         $currency = 'LKR';
-        $amount = 250; 
+        $amount = 250;
         $first_name = $student->initial;
         $last_name = $student->FullName;
         $email = $student->email;
         $phone = $student->contactNumber;
-        $address = $student->houseNumber.''.$student->street.''.$student->district;
+        $address = $student->houseNumber . '' . $student->street . '' . $student->district;
         $city = $student->district;
         $country = 'Sri Lanka';
 
@@ -86,7 +90,6 @@ class PaymentController extends Controller
             $pay->amount = '250.00';
             $pay->enrolment_id = $enrolmentId;
             $pay->save();
-
         } else {
             return response()->json(['error' => 'Enrollment not found'], 404);
         }
@@ -122,5 +125,124 @@ class PaymentController extends Controller
         }
 
         return response('OK', 200);
+    }
+
+    public function ViewStudentsPayments()
+    {
+        $payments = DB::table('student_payments')
+            ->join('enrollments', 'student_payments.enrolment_id', '=', 'enrollments.id')
+            ->join('students', 'enrollments.student_id', '=', 'students.id')
+            ->join('subject_mappings', 'enrollments.subject_id', '=', 'subject_mappings.id')
+            ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
+            ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
+            ->select(
+                'student_payments.*',
+                'students.FullName',
+                'subjects.subject_name',
+                'enrollments.Next_Payment_Date',
+                'grades.Grade'
+            )
+            ->orderBy('created_at', 'DESC')->get();
+
+        return view('Admin.stPayments', compact('payments'));
+    }
+
+    public function getPayments(Request $request)
+    {
+        $startDate = $request->input('startdate');
+        $endDate = $request->input('enddate');
+
+        $payments = DB::table('student_payments')
+            ->join('enrollments', 'student_payments.enrolment_id', '=', 'enrollments.id')
+            ->join('students', 'enrollments.student_id', '=', 'students.id')
+            ->join('subject_mappings', 'enrollments.subject_id', '=', 'subject_mappings.id')
+            ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
+            ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
+            ->select(
+                'student_payments.*',
+                'students.FullName',
+                'subjects.subject_name',
+                'enrollments.Next_Payment_Date',
+                'grades.Grade'
+            )
+            ->orderBy('created_at', 'DESC')->whereBetween('student_payments.payment_date', [$startDate, $endDate])->get();
+
+        return response()->json($payments);
+    }
+
+    public function PrintStudentPayments(Request $request)
+    {
+        $startDate = $request->startdate;
+        $endDate = $request->enddate;
+
+        $payments = DB::table('student_payments')
+            ->join('enrollments', 'student_payments.enrolment_id', '=', 'enrollments.id')
+            ->join('students', 'enrollments.student_id', '=', 'students.id')
+            ->join('subject_mappings', 'enrollments.subject_id', '=', 'subject_mappings.id')
+            ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
+            ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
+            ->select(
+                'student_payments.*',
+                'students.FullName',
+                'subjects.subject_name',
+                'enrollments.Next_Payment_Date',
+                'grades.Grade'
+            )
+            ->orderBy('created_at', 'DESC')->whereBetween('student_payments.payment_date', [$startDate, $endDate])->get();
+
+        $pdf = PDF::loadView('pdf.studentpayment', compact('payments', 'startDate', 'endDate'));
+
+        return $pdf->download('StudentPayment.pdf');
+    }
+
+    public function ViewTeachersPayments()
+    {
+        $payments = DB::table('teacher_payments')
+            ->join('teachers', 'teacher_payments.teacher_id', '=', 'teachers.id')
+            ->select(
+                'teacher_payments.*',
+                'teachers.full_name'
+            )
+            ->orderBy('created_at', 'DESC')->get();
+
+        return view('Admin.TeachersPayments', compact('payments'));
+    }
+
+    public function getTeachersPayments(Request $request){
+        $startDate = $request->input('startdate');
+        $endDate = $request->input('enddate');
+
+        $payments = DB::table('teacher_payments')
+        ->join('teachers', 'teacher_payments.teacher_id', '=', 'teachers.id')
+        ->select(
+            'teacher_payments.*',
+            'teachers.full_name'
+        )
+        ->orderBy('created_at', 'DESC')->whereBetween('teacher_payments.month', [$startDate, $endDate])->get();
+
+        return response()->json($payments);
+    }
+
+    public function PrintTeachersPayments(Request $request)
+    {
+        $startDate = $request->startdate;
+        $endDate = $request->enddate;
+
+        $payments = DB::table('teacher_payments')
+        ->join('teachers', 'teacher_payments.teacher_id', '=', 'teachers.id')
+        ->select(
+            'teacher_payments.*',
+            'teachers.full_name'
+        )
+        ->orderBy('created_at', 'DESC')->whereBetween('teacher_payments.month', [$startDate, $endDate])->get();
+
+        $pdf = PDF::loadView('pdf.teacherpay', compact('payments', 'startDate', 'endDate'));
+
+        return $pdf->download('Teacher salaries.pdf');
+    }
+
+    public function UpdatePayments($id){
+        $enrolment = DB::table('enrollments')->where('id', $id)->first();
+        return view('payment.payhere', compact('enrolment'));
     }
 }

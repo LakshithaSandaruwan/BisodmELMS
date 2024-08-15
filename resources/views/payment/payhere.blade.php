@@ -272,7 +272,7 @@
 
                     <hr class="mt-0 line">
                     <hr class="mt-0 line">
-                    <form action="payment/success" method="POST">
+                    <form action="/payment/success" method="POST">
                         @csrf
                         <input type="hidden" name="enrolment_id" value="{{ $enrolment->id }}">
                         <div class="p-3">

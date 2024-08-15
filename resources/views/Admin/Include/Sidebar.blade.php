@@ -28,6 +28,8 @@
         <a href="/allstudents" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students</a>
         <a href="batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Batches</a>
         <a href="grades" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Grades</a>
+        <a href="student-payments" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students Payments</a>
+        <a href="teacher-payments" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Teachers Payments</a>
 
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user-plus"

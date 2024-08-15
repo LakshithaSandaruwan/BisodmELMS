@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MyClassesController;
 use App\Http\Controllers\EnrollmentController;
+use App\Models\StudentPayment;
 use App\Models\SubjectMapping;
 
 /*
@@ -111,7 +112,18 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/students/pdf', [StudentController::class, 'generatePDF'])->name('students.pdf');
 
     Route::get('/teachers/pdf', [TeacherController::class, 'generatePDF'])->name('students.pdf');
+
+    Route::get('/student-payments', [PaymentController::class, 'ViewStudentsPayments'])->name('AllStudentPayments');
+
+    Route::get('/get-payments', [PaymentController::class, 'getPayments'])->name('get.payments');
+
+    Route::post('/PrintStudentPayments', [PaymentController::class, 'PrintStudentPayments'])->name('StudentPaymentsPrint');
     
+    Route::get('/teacher-payments', [PaymentController::class, 'ViewTeachersPayments'])->name('AllTeacherPayments');
+
+    Route::get('/get-Teacher-payments', [PaymentController::class, 'getTeachersPayments'])->name('get.teacherspayments');
+
+    Route::post('/PrintTeacherPayments', [PaymentController::class, 'PrintTeachersPayments'])->name('TeacherPaymentsPrint');
 });
 
 Route::middleware(['auth', 'Teacher'])->group(function () {
@@ -168,7 +180,7 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
     Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
 
-
+    Route::get('/payment/{id}', [PaymentController::class, 'UpdatePayments'])->name('update.payment');
     
 });
 
