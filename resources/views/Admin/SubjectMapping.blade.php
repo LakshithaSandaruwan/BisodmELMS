@@ -117,8 +117,7 @@
                                     <select name="filterBatch" id="filterBatch" class="form-control" required>
                                         <option value="">Select batch</option>
                                         @foreach ($batches as $batche)
-                                            <option value="{{ $batche->id }}"> {{ $batche->Year }}
-                                            </option>
+                                            <option value="{{ $batche->id }}"> {{ $batche->Year }} </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -167,6 +166,7 @@
                         batch_id: batchId
                     },
                     success: function(response) {
+                        
                         var tbody = $('#subject-mappings-tbody');
                         tbody.empty();
                         $.each(response, function(index, mapping) {

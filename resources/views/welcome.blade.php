@@ -70,7 +70,7 @@
                                     <li><a href="{{ route('login') }}">Log in</a></li>
 
                                     @if (Route::has('register'))
-                                        <li><a href="{{ route('register') }}">Register</a></li>
+                                        <li><a href="{{ route('Student.Registration') }}">Register</a></li>
                                     @endif
                                 @endauth
                             </div>
@@ -79,7 +79,7 @@
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
 
-                <a class="cta-btn d-none d-sm-block" href="#appointment">Online Classes</a>
+                <a class="cta-btn d-none d-sm-block" href="/enrollment">Online Classes</a>
 
             </div>
 

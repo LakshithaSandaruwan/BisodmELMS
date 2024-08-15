@@ -140,9 +140,11 @@ class PaymentController extends Controller
                 'students.FullName',
                 'subjects.subject_name',
                 'enrollments.Next_Payment_Date',
-                'grades.Grade'
+                'grades.Grade',
             )
             ->orderBy('created_at', 'DESC')->get();
+
+            
 
         return view('Admin.stPayments', compact('payments'));
     }

@@ -33,7 +33,7 @@ Route::get('/', function () {
 
 Route::get('/student-registration', function () {
     return view('StudentRegistration');
-});
+})->name('Student.Registration');
 
 Route::get('/teacher-registration', function () {
     return view('TeacherRegistration');

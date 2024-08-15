@@ -14,29 +14,27 @@
         </div>
     </div>
     <div class="navbar-nav w-100">
-        <a href="/home" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+        <a href="/home" class="nav-item nav-link {{ Request::is('home') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user-plus"
-                    aria-hidden="true"></i>Teacher</a>
+            <a href="#" class="nav-link dropdown-toggle {{ Request::is('teacherregistration', 'allteachers', 'teacherSalaries') ? 'active' : '' }}" data-bs-toggle="dropdown"><i class="fa fa-user-plus" aria-hidden="true"></i>Teacher</a>
             <div class="dropdown-menu bg-transparent border-0">
-                <a href="/teacherregistration" class="dropdown-item">Registration</a>
-                <a href="/allteachers" class="dropdown-item">All teachers</a>
-                <a href="/teacherSalaries" class="dropdown-item">Salaries</a>
+                <a href="/teacherregistration" class="dropdown-item {{ Request::is('teacherregistration') ? 'active' : '' }}">Registration</a>
+                <a href="/allteachers" class="dropdown-item {{ Request::is('allteachers') ? 'active' : '' }}">All teachers</a>
+                <a href="/teacherSalaries" class="dropdown-item {{ Request::is('teacherSalaries') ? 'active' : '' }}">Salaries</a>
             </div>
         </div>
-
-        <a href="/allstudents" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students</a>
-        <a href="batch" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Batches</a>
-        <a href="grades" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Grades</a>
-        <a href="student-payments" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Students Payments</a>
-        <a href="teacher-payments" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Teachers Payments</a>
-
+ 
+        <a href="/allstudents" class="nav-item nav-link {{ Request::is('allstudents') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Students</a>
+        <a href="/batch" class="nav-item nav-link {{ Request::is('batch') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Batches</a>
+        <a href="/grades" class="nav-item nav-link {{ Request::is('grades') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Grades</a>
+        <a href="/student-payments" class="nav-item nav-link {{ Request::is('student-payments') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Students Payments</a>
+        <a href="/teacher-payments" class="nav-item nav-link {{ Request::is('teacher-payments') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Teachers Payments</a>
+ 
         <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-user-plus"
-                    aria-hidden="true"></i>Subjects</a>
+            <a href="#" class="nav-link dropdown-toggle {{ Request::is('subject', 'setsubjects') ? 'active' : '' }}" data-bs-toggle="dropdown"><i class="fa fa-user-plus" aria-hidden="true"></i>Subjects</a>
             <div class="dropdown-menu bg-transparent border-0">
-                <a href="/subject" class="dropdown-item">Subject manage</a>
-                <a href="setsubjects" class="dropdown-item">Subject Mapping</a>
+                <a href="/subject" class="dropdown-item {{ Request::is('subject') ? 'active' : '' }}">Subject manage</a>
+                <a href="/setsubjects" class="dropdown-item {{ Request::is('setsubjects') ? 'active' : '' }}">Subject Mapping</a>
             </div>
         </div>
     </div>
