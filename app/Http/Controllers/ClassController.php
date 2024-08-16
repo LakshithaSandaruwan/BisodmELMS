@@ -170,7 +170,8 @@ class ClassController extends Controller
         $links = ZoomLink::whereIn('zoom_links.subject_id', $mappingIds)
             ->join('subject_mappings', 'zoom_links.subject_id', '=', 'subject_mappings.id')
             ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
-            ->select('zoom_links.*', 'subject_mappings.*', 'subjects.*') // Optional: Select specific columns
+            ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
+            ->select('zoom_links.*', 'subject_mappings.*', 'subjects.*', 'grades.Grade') // Optional: Select specific columns
             ->get();
 
 

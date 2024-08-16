@@ -41,7 +41,7 @@
                                     @foreach ($links as $link)
                                         <tr>
                                             <td>{{ $link->subject_name }} </td>
-                                            <td>Grade {{ $link->subject_id }}</td>
+                                            <td>Grade {{ $link->Grade }}</td>
                                             <td>{{ $link->day }}</td>
                                             <td>{{ $link->StartTime }} </td>
                                             <td>{{ $link->EndTime }}</td>
