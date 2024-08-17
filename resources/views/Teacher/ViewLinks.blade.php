@@ -9,6 +9,7 @@
     <meta content="" name="description">
     @include('CDNs.AdminCDN')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </head>
 
 <body>
@@ -26,8 +27,9 @@
                             <h6 class="mb-4">Class links</h6>
                             <input type="text" id="search-studnts" class="form-control mb-4"
                                 placeholder="Search by Teacher Name">
-                            <table class="table">
-                                <thead>
+                        
+                            <table class="table mb-0">
+                                <thead class="small text-uppercase bg-body text-muted">
                                     <tr>
                                         <th scope="col">Subject</th>
                                         <th scope="col">Grade</th>
@@ -50,6 +52,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        
                         </div>
                     </div>
                 </div>
@@ -60,6 +63,8 @@
     </div>
 
     @include('CDNs.AdminJS')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>
