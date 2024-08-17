@@ -39,8 +39,8 @@
             <div class="container d-flex justify-content-center justify-content-md-between">
                 <div class="contact-info d-flex align-items-center">
                     <i class="bi bi-envelope d-flex align-items-center"><a
-                            href="mailto:contact@example.com">contact@example.com</a></i>
-                    <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+                            href="mailto:contact@example.com">bisdomelms@gmail.com</a></i>
+                    <i class="bi bi-phone d-flex align-items-center ms-4"><span>+94 33 223 6224</span></i>
                 </div>
                 <div class="social-links d-none d-md-flex align-items-center">
                     <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
@@ -127,28 +127,25 @@
 
                                 <div class="col-xl-4 d-flex align-items-stretch">
                                     <div class="icon-box" data-aos="zoom-out" data-aos-delay="300">
-                                        <i class="bi bi-clipboard-data"></i>
-                                        <h4>Corporis voluptates officia eiusmod</h4>
-                                        <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut
-                                            aliquip</p>
+                                        <i class="bi bi-gem"></i>
+                                        <h4>Vision</h4>
+                                        <p>Preparing wise children enriched with good qualities that surpass the current competition</p>
                                     </div>
                                 </div><!-- End Icon Box -->
 
                                 <div class="col-xl-4 d-flex align-items-stretch">
                                     <div class="icon-box" data-aos="zoom-out" data-aos-delay="400">
-                                        <i class="bi bi-gem"></i>
-                                        <h4>Ullamco laboris ladore pan</h4>
-                                        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                            deserunt</p>
+                                        <i class="bi bi-clipboard-data"></i>
+                                        <h4>Mission</h4>
+                                        <p>As an home school program, Bisdom Academy employs a standards-based curriculum that caters to individual differences and learning preferences. We encourage students to take responsibility of their current and future education by developing their academic, social, self-awareness, and technological abilities.</p>
                                     </div>
                                 </div><!-- End Icon Box -->
 
                                 <div class="col-xl-4 d-flex align-items-stretch">
                                     <div class="icon-box" data-aos="zoom-out" data-aos-delay="500">
-                                        <i class="bi bi-inboxes"></i>
-                                        <h4>Labore consequatur incidid dolore</h4>
-                                        <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis
-                                            facere</p>
+                                        <i class="bi bi-balloon-heart"></i>
+                                        <h4>Values</h4>
+                                        <p>We mainly focus on values of learing, Relationship, Integrity, Accoutability, Innovation and Respect</p>
                                     </div>
                                 </div><!-- End Icon Box -->
 
@@ -167,13 +164,14 @@
                 <div class="row gy-4">
                     <div class="col-lg-4 col-md-6 footer-about">
                         <a href="index.html" class="logo d-flex align-items-center">
-                            <span class="sitename">Medilab</span>
+                            <span class="sitename">BisdomELMS</span>
                         </a>
                         <div class="footer-contact pt-3">
-                            <p>A108 Adam Street</p>
-                            <p>New York, NY 535022</p>
-                            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-                            <p><strong>Email:</strong> <span>info@example.com</span></p>
+                            <p>115/A, Oruthota Road</p>
+                            <p>Gampaha.</p>
+                            <p>Sri Lanka.</p>
+                            <p class="mt-3"><strong>Phone:</strong> <span>+94 33 223 6224</span></p>
+                            <p><strong>Email:</strong> <span>bisdomelms@gmail.com</span></p>
                         </div>
                         <div class="social-links d-flex mt-4">
                             <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -231,7 +229,7 @@
             </div>
 
             <div class="container copyright text-center mt-4">
-                <p>© <span>Copyright</span> <strong class="px-1 sitename">Medilab</strong> <span>All Rights
+                <p>© <span>Copyright</span> <strong class="px-1 sitename">BisdomELMS</strong> <span>All Rights
                         Reserved</span></p>
                 <div class="credits">
                     <!-- All the links in the footer should remain intact. -->
