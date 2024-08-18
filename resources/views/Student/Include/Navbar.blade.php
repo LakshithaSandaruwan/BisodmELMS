@@ -12,7 +12,7 @@
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <i class="fa fa-envelope me-lg-2"></i>
-                <span class="d-none d-lg-inline-flex">Message</span>
+                <span class="d-none d-lg-inline-flex">Message <span class="badge bg-danger"> {{$messagesCount}}</span></span>
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                 @foreach ($messages as $message)

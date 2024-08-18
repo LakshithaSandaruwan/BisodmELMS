@@ -16,6 +16,8 @@ class MessageController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        Message::where('is_read', false)->update(['is_read' => true]);
+
         return view('Student.AllMessages', compact('messages'));
     }
 }

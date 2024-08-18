@@ -33,8 +33,10 @@ class ViewServiceProvider extends ServiceProvider
                     ->orderBy('created_at', 'desc')
                     ->get();
 
-                // Share messages with all views
-                $view->with('messages', $messages);
+                $messagesCount = Message::where('to_user', $userId)->where('is_read', false)
+                    ->count();
+
+                $view->with('messages', $messages)->with('messagesCount', $messagesCount);
             }
         });
     }
