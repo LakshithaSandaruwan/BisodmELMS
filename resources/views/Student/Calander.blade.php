@@ -32,6 +32,8 @@
                                         <thead class="small text-uppercase bg-body text-muted">
                                             <tr>
                                                 <th>Subject</th>
+                                                <th>Grade</th>
+                                                <th>Teacher Name</th>
                                                 <th>Access Link</th>
                                                 <th>Day</th>
                                                 <th>Time</th>
@@ -49,6 +51,8 @@
                                                             </div>
                                                         </div>
                                                     </td>
+                                                    <td>{{$timetable->Grade}}</td>
+                                                    <td>{{$timetable->full_name}}</td>
                                                     <td> <a href="{{ $timetable->zoom_link }}">JOIN</a></td>
                                                     <td>{{ $timetable->day }} </td>
                                                     <td>{{ $timetable->StartTime }} - {{ $timetable->EndTime }}

@@ -74,7 +74,7 @@
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="FullName" id="FullName"
                                                     class="form-control"
-                                                    placeholder="ex, Agampodi Lakshitha Sandaruwan">
+                                                    placeholder="ex, Agampodi Lakshitha Sandaruwan" value="{{ old('FullName') }}">
                                             </div>
                                         </div>
 
@@ -82,7 +82,7 @@
                                             <div class="col-4">
                                                 <label for="Gender" class="fw-bold">Gender <span
                                                         class="text-danger">*</span></label>
-                                                <select name="Gender" id="Gender" required class="form-control">
+                                                <select name="Gender" id="Gender" required class="form-control" value="{{ old('gender') }}">
                                                     <option value="">Select Gender</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -92,7 +92,7 @@
                                                 <label for="birthday" class="fw-bold">Birthday <span
                                                         class="text-danger">*</span></label>
                                                 <input type="date" name="birthday" id="birthday"
-                                                    class="form-control">
+                                                    class="form-control" value="{{ old('birthday') }}">
                                             </div>
                                         </div>
 
@@ -101,13 +101,13 @@
                                                 <label for="School" class="fw-bold">School <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="school" class="form-control"
-                                                    placeholder="ex, Bandranayake Central College">
+                                                    placeholder="ex, Bandranayake Central College" value="{{ old('school') }}">
                                             </div>
                                             <div class="col-4">
                                                 <label for="city" class="fw-bold">City <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="City" id="City" class="form-control"
-                                                    placeholder="ex, Veyangoda">
+                                                    placeholder="ex, Veyangoda" value="{{ old('City') }}">
                                             </div>
                                         </div>
 
@@ -115,7 +115,7 @@
                                             <div class="col-4">
                                                 <label for="Grade" class="fw-bold">Grade <span
                                                         class="text-danger">*</span></label>
-                                                <select name="Grade" id="grade" class="form-control">
+                                                <select name="Grade" id="grade" class="form-control" value="{{ old('grade') }}">
                                                     <option value="">Select Grade</option>
                                                     <option value="Grade 1">Grade 1</option>
                                                     <option value="Grade 2">Grade 2</option>
@@ -142,7 +142,7 @@
                                                 <label for="Contact" class="fw-bold">Contact Number<span
                                                         class="text-danger">*</span></label>
                                                 <input type="number" name="ContactNumber" id="Contact"
-                                                    placeholder="ex 0774352627" class="form-control">
+                                                    placeholder="ex 0774352627" class="form-control" value="{{ old('ContactNumber') }}">
                                             </div>
                                             <div class="col-4">
                                                 <label for="Email" class="fw-bold">E-mail <span
@@ -170,13 +170,13 @@
                                             <div class="col-3">
                                                 <label for="HouseNumber" class="fw">House Number</label>
                                                 <input type="text" name="HouseNumber" id="HouseNumber"
-                                                    class="form-control" placeholder="ex, 174/B">
+                                                    class="form-control" placeholder="ex, 174/B" value="{{ old('HouseNumber') }}">
                                             </div>
                                             <div class="col-6">
                                                 <label for="Street" class="fw">Street Address <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="StreetAdress" id="StreetAdress"
-                                                    class="form-control" placeholder="ex, Oruthota">
+                                                    class="form-control" placeholder="ex, Oruthota" value="{{ old('StreetAdress') }}">
                                             </div>
                                         </div>
 
@@ -185,12 +185,12 @@
                                                 <label for="city" class="fw-bold">District <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="District" id="District"
-                                                    class="form-control" placeholder="ex, Gampaha">
+                                                    class="form-control" placeholder="ex, Gampaha" value="{{ old('District') }}">
                                             </div>
                                             <div class="col-4">
                                                 <label for="province" class="fw-bold">Province <span
                                                         class="text-danger">*</span></label>
-                                                <select name="province" id="province" class="form-control">
+                                                <select name="province" id="province" class="form-control" value="{{ old('province') }}">
                                                     <option value="">Select Province</option>
                                                     <option value="Central Province">Central Province</option>
                                                     <option value="Eastern Province">Eastern Province</option>
@@ -218,7 +218,7 @@
                                                 <label for="Full Name" class="fw-bold">Full Name <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="ParentFullName" id="FullName"
-                                                    class="form-control" placeholder="ex, Dewa Pushpa Ranjani">
+                                                    class="form-control" placeholder="ex, Dewa Pushpa Ranjani" value="{{ old('ParentFullName') }}">
                                             </div>
                                         </div>
 
@@ -226,7 +226,7 @@
                                             <div class="col-4">
                                                 <label for="Gender" class="fw-bold">Gender<span
                                                         class="text-danger">*</span></label>
-                                                <select name="ParentGender" id="Gender" class="form-control">
+                                                <select name="ParentGender" id="Gender" class="form-control" value="{{ old('ParentGender') }}">
                                                     <option value="">Select Gender</option>
                                                     <option value="Male">Male</option>
                                                     <option value="Female">Female</option>
@@ -236,7 +236,7 @@
                                                 <label for="ParentBirthday" class="fw-bold">Birthday <span
                                                         class="text-danger">*</span></label>
                                                 <input type="date" name="ParentBirthday" id="ParentBirthday"
-                                                    class="form-control">
+                                                    class="form-control" value="{{ old('ParentBirthday') }}">
                                             </div>
                                         </div>
 
@@ -245,7 +245,7 @@
                                                 <label for="NIC Number" class="fw-bold">NIC Number <span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" name="NIC" id="NIC"
-                                                    class="form-control" placeholder="ex, 674573865V">
+                                                    class="form-control" placeholder="ex, 674573865V" value="{{ old('NIC') }}">
                                             </div>
                                         </div>
 
@@ -254,14 +254,14 @@
                                                 <label for="ParentContactNumber" class="fw-bold">Contact Number <span
                                                         class="text-danger">*</span></label>
                                                 <input type="number" name="PNumber" id="PNumber"
-                                                    class="form-control" placeholder="ex, 0754738543">
+                                                    class="form-control" placeholder="ex, 0754738543" value="{{ old('PNumber') }}">
                                             </div>
 
                                             <div class="col-4">
                                                 <label for="PEmail" class="fw-bold">E-mail <span
                                                         class="text-danger">*</span></label>
                                                 <input type="email" name="Pemail" id="Pemail"
-                                                    class="form-control" placeholder="abc@gmail.com">
+                                                    class="form-control" placeholder="abc@gmail.com" value="{{ old('Pemail') }}">
                                             </div>
                                         </div>
 
@@ -278,7 +278,7 @@
                                             <div class="col-md-6">
                                                 <input id="password" type="password"
                                                     class="form-control @error('password') is-invalid @enderror"
-                                                    name="password" required autocomplete="new-password">
+                                                    name="password" required autocomplete="new-password" value="{{ old('password') }}">
 
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
@@ -294,7 +294,7 @@
 
                                             <div class="col-md-6">
                                                 <input id="password-confirm" type="password" class="form-control"
-                                                    name="password_confirmation" required autocomplete="new-password">
+                                                    name="password_confirmation" required autocomplete="new-password" value="{{ old('password_confirmation') }}">
                                             </div>
                                         </div>
 
