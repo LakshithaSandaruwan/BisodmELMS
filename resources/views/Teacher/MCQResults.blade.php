@@ -72,23 +72,51 @@
                         @endif
                         <div class="overflow-hidden card table-nowrap table-card">
                             <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">Quizes</h5>
+                                <h5 class="mb-0">Results</h5>
                             </div>
                             <div class="table-responsive">
                                 <table class="table mb-0" >
                                     <thead class="small text-uppercase bg-body text-muted">
                                         <tr>
-                                            <th>Quiz name</th>
-                                            <th>Deadline</th>
-                                            <th>Submisions</th>
+                                            <th>Student name</th>
+                                            <th>Correct answers</th>
+                                            <th>Percentage (%)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($quizes as $quize)
+                                        @foreach ($results as $result)
                                             <tr class="align-middle">
-                                               <td>{{$quize->QuizName}}</td>
-                                               <td>{{$quize->deadline}}</td>
-                                               <td class="text-danger fw-bold"><a href="quiz-submisions-view/{{$quize->id}}">{{$quize->results_count}}</a></td>
+                                               <td>{{$result->FullName}}</td>
+                                               <td>{{$result->total_Correct_answers}}</td>
+                                               <td class="text-danger fw-bold">{{ number_format(($result->total_Correct_answers / $result->total_answers) * 100, 2) }}%</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="overflow-hidden card table-nowrap table-card mt-5">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0 text-danger">Yet to submit</h5>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table mb-0" >
+                                    <thead class="small text-uppercase bg-body text-muted">
+                                        <tr>
+                                            <th>Student name</th>
+                                            <th>Student Email</th>
+                                            <th>Perent Email</th>
+                                            <th>Notify</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($NotSubmittedStudents as $NotSubmittedStudent)
+                                            <tr class="align-middle">
+                                               <td>{{$NotSubmittedStudent->FullName}}</td></td>
+                                               <td>{{$NotSubmittedStudent->email}}</td>
+                                               <td>{{$NotSubmittedStudent->PerentEmail}}</td>
+                                               <td><a href="/notify-email/{{$id}}/{{$NotSubmittedStudent->id}}"><i class="fa fa-paper-plane" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

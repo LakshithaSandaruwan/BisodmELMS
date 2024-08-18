@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Quiz;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Question;
 use App\Models\Enrollment;
+use App\Models\QuizResult;
 use Illuminate\Http\Request;
-use App\Models\QuestionAnswer;
-use Illuminate\Support\Facades\DB;
 
+use App\Mail\QuizReminderMail;
+use App\Models\Message;
+use App\Models\QuestionAnswer;
+use App\Models\SubjectMapping;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use function PHPUnit\Framework\isNull;
 use App\Models\QuestionsStudentAnswers;
-use App\Models\SubjectMapping;
-use App\Models\Teacher;
 
 class QuizController extends Controller
 {
@@ -190,6 +194,32 @@ class QuizController extends Controller
             ]);
         }
 
+        $CorrectAnswers = DB::table('questions_student_answers')
+            ->join('question_answers', 'questions_student_answers.answer_id', '=', 'question_answers.id')
+            ->select(
+                'questions_student_answers.*'
+            )
+            ->where('question_answers.is_correct', true)
+            ->where('questions_student_answers.student_id', $studentId)
+            ->where('questions_student_answers.quiz_id', $request->input('quiz_id'))
+            ->count();
+
+        $answersCount = DB::table('questions_student_answers')
+            ->join('question_answers', 'questions_student_answers.answer_id', '=', 'question_answers.id')
+            ->select(
+                'questions_student_answers.*'
+            )
+            ->where('questions_student_answers.student_id', $studentId)
+            ->where('questions_student_answers.quiz_id', $request->input('quiz_id'))
+            ->count();
+
+        $quizResult = new QuizResult();
+        $quizResult->student_id = $studentId;
+        $quizResult->quiz_id = $request->input('quiz_id');
+        $quizResult->total_answers = $answersCount;
+        $quizResult->total_Correct_answers = $CorrectAnswers;
+        $quizResult->save();
+
         return redirect()->route('view-questions', $request->input('quiz_id'))->with('success', 'Quiz submitted successfully!');
     }
 
@@ -197,11 +227,68 @@ class QuizController extends Controller
     {
         $userId = Auth::id();
         $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
-        $subjects = SubjectMapping::where('teacher_id', $teacherId)->pluck('id'); 
+        $subjects = SubjectMapping::where('teacher_id', $teacherId)->pluck('id');
 
-        $quizes = Quiz::whereIn('subject_id', $subjects)->get(); 
+        $quizes = Quiz::whereIn('subject_id', $subjects)->get();
 
-        return view('Teacher.Quizes', compact('quizes'));
+        $quizesWithCounts = $quizes->map(function ($quiz) {
+            $quizResultsCount = QuizResult::where('quiz_id', $quiz->id)->count();
+            $quiz->results_count = $quizResultsCount;
+            return $quiz;
+        });
 
+        //dd(['quizes' => $quizesWithCounts]);
+        return view('Teacher.Quizes', ['quizes' => $quizesWithCounts]);
+    }
+
+    public function StudentQuizResults($id)
+    {
+        $results = QuizResult::where('quiz_id', $id)
+            ->Join('students', 'quiz_results.student_id', '=', 'students.id')
+            ->select('quiz_results.*', 'students.FullName')
+            ->get();
+
+        $subjectId = Quiz::where('id', $id)->pluck('subject_id')->first();
+
+        $AllStudents = Enrollment::where('subject_id', $subjectId)->pluck('student_id');
+
+        $SubmittedStudents = QuizResult::where('quiz_id', $id)->pluck('student_id');
+
+        $NotSubmittedStudents = Enrollment::where('subject_id', $subjectId)
+            ->whereNotIn('student_id', $SubmittedStudents)
+            ->Join('students', 'enrollments.student_id', '=', 'students.id')
+            ->select('students.FullName', 'students.email', 'students.PerentEmail', 'students.id')
+            ->get();
+
+        return view('Teacher.MCQResults', compact('results', 'NotSubmittedStudents', 'id'));
+    }
+
+    public function SendNotifyEmail($id, $stId)
+    {
+        // Fetch student and parent email addresses
+        $student = Student::find($stId);
+        $parentEmail = $student->PerentEmail;
+        $studentEmail = $student->email;
+        $studentUserId = $student->user_id;
+
+        $quiz = Quiz::find($id);
+        $quizName = $quiz->QuizName;
+        $deadline = $quiz->deadline;
+
+        // Single quiz data
+        $quizName = $quizName;
+        $dueDate = $deadline;
+
+        $message = new Message();
+        $message->to_user = $studentUserId;
+        $message->message = "Hi $student->FullName, Please complete your quiz ($quizName) as soon as possible. Contact us if you need assistance.";
+        $message->header = "Quiz Reminder!!!";
+        $message->save();
+
+        Mail::to($studentEmail)
+            ->cc($parentEmail)
+            ->send(new QuizReminderMail($student->FullName, $quizName, $dueDate));
+
+        return redirect()->back()->with('success', 'Notified successfully!');
     }
 }
