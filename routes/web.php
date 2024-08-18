@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MyClassesController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\MessageController;
 use App\Models\StudentPayment;
 use App\Models\SubjectMapping;
@@ -188,6 +189,12 @@ Route::middleware(['auth', 'Student'])->group(function () {
     Route::get('/payment/{id}', [PaymentController::class, 'UpdatePayments'])->name('update.payment');
 
     Route::get('/viewmessages', [MessageController::class, 'ViewMessages']);
+
+    Route::post('/feedbacksave',[FeedbackController::class,'FeedbackSave']);
+
+    Route::get('/feedbackview',function(){
+        return view('Student.Feedback');
+    });
     
 });
 

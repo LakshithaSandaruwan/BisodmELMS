@@ -24,5 +24,6 @@
 
         <a href="/MyCalander" class="nav-item nav-link {{ Request::is('MyCalander') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>My Classes</a>
        
+        <a href="/feedbackview" class="nav-item nav-link {{ Request::is('feedbackview') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Feedback</a>
     </div>
 </nav>

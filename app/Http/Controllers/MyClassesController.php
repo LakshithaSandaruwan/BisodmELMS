@@ -49,12 +49,17 @@ class MyClassesController extends Controller
             ->join('subject_mappings as sm', 'e.subject_id', '=', 'sm.id')
             ->join('subjects as s', 'sm.subject_id', '=', 's.id')
             ->join('zoom_links as zl', 'sm.id', '=', 'zl.subject_id')
+            ->join('teachers','sm.teacher_id','=','teachers.id')
+            ->join('grades','sm.grade_id','=','grades.id')
             ->select(
                 's.subject_name',
                 'zl.Links as zoom_link',
                 'zl.day',
                 'zl.StartTime',
-                'zl.EndTime'
+                'zl.EndTime',
+                'teachers.full_name',
+                'grades.Grade'
+                
             )
             ->where('e.student_id', $studentId)
             ->get();

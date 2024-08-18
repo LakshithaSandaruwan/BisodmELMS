@@ -47,7 +47,7 @@
                                             <td>{{ $link->day }}</td>
                                             <td>{{ $link->StartTime }} </td>
                                             <td>{{ $link->EndTime }}</td>
-                                            <td><a href="{{ $link->Links }}">{{ $link->Links }}</a></td>
+                                            <td><a href="{{ $link->Links }}">Join</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
