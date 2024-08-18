@@ -154,6 +154,8 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
     Route::get('/endClass/{id}', [SubjectController::class, 'EndTheClass']);
     
     Route::get('/ViewQuizes', [QuizController::class, 'viewQuizes']);
+
+    Route::get('/quiz-submisions-view/{id}', [QuizController::class, 'StudentQuizResults']);
     
 });
 
