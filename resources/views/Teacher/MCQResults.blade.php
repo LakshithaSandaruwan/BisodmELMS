@@ -105,12 +105,18 @@
                                     <thead class="small text-uppercase bg-body text-muted">
                                         <tr>
                                             <th>Student name</th>
+                                            <th>Student Email</th>
+                                            <th>Perent Email</th>
+                                            <th>Notify</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($NotSubmittedStudents as $NotSubmittedStudent)
                                             <tr class="align-middle">
-                                               <td>{{$NotSubmittedStudents->FullName}}</td>
+                                               <td>{{$NotSubmittedStudent->FullName}}</td></td>
+                                               <td>{{$NotSubmittedStudent->email}}</td>
+                                               <td>{{$NotSubmittedStudent->PerentEmail}}</td>
+                                               <td><a href="/notify-email/{{$id}}/{{$NotSubmittedStudent->id}}"><i class="fa fa-paper-plane" aria-hidden="true"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

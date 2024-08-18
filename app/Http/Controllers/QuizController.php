@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Quiz;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Question;
 use App\Models\Enrollment;
+use App\Models\QuizResult;
 use Illuminate\Http\Request;
-use App\Models\QuestionAnswer;
-use Illuminate\Support\Facades\DB;
 
+use App\Mail\QuizReminderMail;
+use App\Models\Message;
+use App\Models\QuestionAnswer;
+use App\Models\SubjectMapping;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use function PHPUnit\Framework\isNull;
 use App\Models\QuestionsStudentAnswers;
-use App\Models\QuizResult;
-use App\Models\SubjectMapping;
-use App\Models\Teacher;
 
 class QuizController extends Controller
 {
@@ -253,8 +256,39 @@ class QuizController extends Controller
 
         $NotSubmittedStudents = Enrollment::where('subject_id', $subjectId)
             ->whereNotIn('student_id', $SubmittedStudents)
-            ->pluck('student_id');
+            ->Join('students', 'enrollments.student_id', '=', 'students.id')
+            ->select('students.FullName', 'students.email', 'students.PerentEmail', 'students.id')
+            ->get();
 
-        return view('Teacher.MCQResults', compact('results','NotSubmittedStudents'));
+        return view('Teacher.MCQResults', compact('results', 'NotSubmittedStudents', 'id'));
+    }
+
+    public function SendNotifyEmail($id, $stId)
+    {
+        // Fetch student and parent email addresses
+        $student = Student::find($stId);
+        $parentEmail = $student->PerentEmail;
+        $studentEmail = $student->email;
+        $studentUserId = $student->user_id;
+
+        $quiz = Quiz::find($id);
+        $quizName = $quiz->QuizName;
+        $deadline = $quiz->deadline;
+
+        // Single quiz data
+        $quizName = $quizName;
+        $dueDate = $deadline;
+
+        $message = new Message();
+        $message->to_user = $studentUserId;
+        $message->message = "Hi $student->FullName, Please complete your quiz ($quizName) as soon as possible. Contact us if you need assistance.";
+        $message->header = "Quiz Reminder!!!";
+        $message->save();
+
+        Mail::to($studentEmail)
+            ->cc($parentEmail)
+            ->send(new QuizReminderMail($student->FullName, $quizName, $dueDate));
+
+        return redirect()->back()->with('success', 'Notified successfully!');
     }
 }

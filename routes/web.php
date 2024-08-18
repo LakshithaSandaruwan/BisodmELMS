@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MyClassesController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\MessageController;
 use App\Models\StudentPayment;
 use App\Models\SubjectMapping;
 
@@ -156,6 +157,8 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
     Route::get('/ViewQuizes', [QuizController::class, 'viewQuizes']);
 
     Route::get('/quiz-submisions-view/{id}', [QuizController::class, 'StudentQuizResults']);
+
+    Route::get('/notify-email/{id}/{stId}', [QuizController::class, 'SendNotifyEmail']);
     
 });
 
@@ -183,6 +186,8 @@ Route::middleware(['auth', 'Student'])->group(function () {
     Route::post('/submit-quiz', [QuizController::class, 'SubmitQuizAnswers']);
 
     Route::get('/payment/{id}', [PaymentController::class, 'UpdatePayments'])->name('update.payment');
+
+    Route::get('/viewmessages', [MessageController::class, 'ViewMessages']);
     
 });
 
