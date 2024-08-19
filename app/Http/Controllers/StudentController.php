@@ -72,13 +72,18 @@ class StudentController extends Controller
         $query = $request->get('query');
         $subid = $request->get('sid');
         // $teachers = Student::where('FullName', 'LIKE', "%{$query}%")->get();
-        $teachers = Enrollment::where('subject_id', $subid)->where('students.FullName','LIKE', "%{$query}%")->join('students', 'enrollments.student_id', '=', 'students.id')->get();
+        $students = Enrollment::where('subject_id', $subid)
+        ->where('students.FullName','LIKE', "%{$query}%")
+        ->join('students', 'enrollments.student_id', '=', 'students.id')
+        ->get();
 
-        return response()->json($teachers);
+        return response()->json($students);
     }
 
     public function BatchStudents($id){
-        $students = Enrollment::where('subject_id', $id)->join('students', 'enrollments.student_id', '=', 'students.id')->get();
+        $students = Enrollment::where('subject_id', $id)
+        ->join('students', 'enrollments.student_id', '=', 'students.id')
+        ->get();
 
         return view('Teacher.ClassStudents', compact('students','id'));
     }

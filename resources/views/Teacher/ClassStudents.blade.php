@@ -9,6 +9,7 @@
     <meta content="" name="description">
     @include('CDNs.AdminCDN')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </head>
 
 <body>
@@ -67,9 +68,9 @@
     <script>
         $(document).ready(function() {
             $('#search-studnts').on('keyup', function() {
-                var query = $(this).val();
-                var sid = $('#sid').val();
-                console.log(query,sid);
+                var query = $(this).val(); //Type value get
+                var sid = $('#sid').val(); //alreday hidden sid get
+                
                 $.ajax({
                     url: "{{ route('filter.students') }}", // Your route to fetch filtered teachers
                     type: "GET",
@@ -77,10 +78,10 @@
                         'query': query,
                         'sid' : sid
                     },
-                    success: function(data) {
+                    success: function(data) {  //data create newly this line
                         
                         $('#teacher-table-body').html(''); // Clear the existing table body
-                        $.each(data, function(key, student) {
+                        $.each(data, function(key, student) { //student create newly this line
                             $('#teacher-table-body').append(
                                 '<tr>' +
                                 '<td>' + student.FullName + '</td>' +
