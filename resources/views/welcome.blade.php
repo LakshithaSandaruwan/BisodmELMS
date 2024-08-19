@@ -111,11 +111,36 @@
                     <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
                         <h3>About Us</h3>
                         <p>
-                            Dolor iure expedita id fuga asperiores qui sunt consequatur minima. Quidem voluptas
-                            deleniti. Sit quia molestiae quia quas qui magnam itaque veritatis dolores. Corrupti totam
-                            ut eius incidunt reiciendis veritatis asperiores placeat.
+                            Welcome to Bisdom Academy, where our primary goal is to make education accessible
+                            for low-income students. Established in 2024, we are dedicated to providing resources,
+                            tools, and support tailored to the unique needs of students facing financial challenges.
                         </p>
-                        <ul>
+
+                        <p>
+                            At Bisdom Academy, we understand that financial constraints can often limit educational opportunities.
+                            That's why we offer a comprehensive range of free and low-cost educational materials,
+                            including interactive lessons, tutoring, and study aids designed to help students succeed academically
+                            without the burden of additional costs.
+                        </p>
+
+                        <p>
+                            Our platform is designed with you in mind. Whether you're in elementary school,
+                            high school, or pursuing higher education, we provide resources that cater to various educational
+                            levels and subjects. Our team of educators and mentors is committed to creating an inclusive environment
+                            where every student can thrive, regardless of their economic background.
+                        </p>
+
+                        <p>
+                            We partner with schools, community organizations, and volunteers to ensure that our resources are both relevant
+                            and accessible. Our mission is to support and empower students, helping them to achieve their full potential and
+                            overcome the barriers posed by financial limitations.
+                        </p>
+
+                        <p>
+                            Thank you for choosing Bisdom Academy. We are honored to be part of your educational journey and are here to support
+                            you every step of the way.
+                        </p>
+                        <!-- <ul>
                             <li>
                                 <i class="fa-solid fa-vial-circle-check"></i>
                                 <div>
@@ -140,7 +165,7 @@
                                         veniam</p>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
 
                 </div>
@@ -157,12 +182,11 @@
                 <div class="row align-items-center">
 
                     <div class="col-lg-5 info" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Testimonials</h3>
+                        <h3>Feedback</h3>
                         <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate
-                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident.
+                            Explore what our students have to say about their experiences at Bisdom Academy.
+                            Their feedback highlights our commitment to excellence and continuous improvement in providing
+                            a top-quality education.
                         </p>
                     </div>
 
@@ -170,20 +194,20 @@
 
                         <div class="swiper init-swiper">
                             <script type="application/json" class="swiper-config">
-                  {
-                    "loop": true,
-                    "speed": 600,
-                    "autoplay": {
-                      "delay": 5000
-                    },
-                    "slidesPerView": "auto",
-                    "pagination": {
-                      "el": ".swiper-pagination",
-                      "type": "bullets",
-                      "clickable": true
-                    }
-                  }
-                </script>
+                                {
+                                    "loop": true,
+                                    "speed": 600,
+                                    "autoplay": {
+                                        "delay": 5000
+                                    },
+                                    "slidesPerView": "auto",
+                                    "pagination": {
+                                        "el": ".swiper-pagination",
+                                        "type": "bullets",
+                                        "clickable": true
+                                    }
+                                }
+                            </script>
                             <div class="swiper-wrapper">
 
                                 @foreach($feedbacks as $feedback)
