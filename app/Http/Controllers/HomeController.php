@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Enrollment;
+use App\Models\Feedback;
 use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use App\Models\StudentPayment;
@@ -216,4 +217,6 @@ class HomeController extends Controller
             return view('welcome');
         }
     }
+
+    
 }

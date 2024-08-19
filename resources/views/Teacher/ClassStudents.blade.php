@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-
+        <input type="hidden" name="sid" id="sid" value="{{$id}}">
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
@@ -68,20 +68,21 @@
         $(document).ready(function() {
             $('#search-studnts').on('keyup', function() {
                 var query = $(this).val();
-
+                var sid = $('#sid').val();
+                console.log(query,sid);
                 $.ajax({
                     url: "{{ route('filter.students') }}", // Your route to fetch filtered teachers
                     type: "GET",
                     data: {
-                        'query': query
+                        'query': query,
+                        'sid' : sid
                     },
                     success: function(data) {
-                        console.log(data);
+                        
                         $('#teacher-table-body').html(''); // Clear the existing table body
                         $.each(data, function(key, student) {
                             $('#teacher-table-body').append(
                                 '<tr>' +
-                                '<th scope="row">' + student.id + '</th>' +
                                 '<td>' + student.FullName + '</td>' +
                                 '<td>' + student.Gender + '</td>' +
                                 '<td>' + student.birthday + '</td>' +

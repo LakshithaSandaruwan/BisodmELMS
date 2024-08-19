@@ -14,7 +14,9 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\MyClassesController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\WelcomeController;
 use App\Models\StudentPayment;
 use App\Models\SubjectMapping;
 
@@ -29,23 +31,21 @@ use App\Models\SubjectMapping;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'welcomepage']);
+
 
 Route::get('/student-registration', function () {
     return view('StudentRegistration');
 })->name('Student.Registration');
 
-Route::get('/teacher-registration', function () {
-    return view('TeacherRegistration');
-});
+// Route::get('/teacher-registration', function () {
+//     return view('TeacherRegistration');
+// });
 
 //student routes
 Route::post('/SaveStudent', [StudentController::class, 'Register']);
 
-//teacher routes
-Route::post('/teacherRegistration', [TeacherController::class, 'Register']);
+
 
 
 
@@ -72,6 +72,9 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/teacherregistration', function () {
         return view('Admin.Teacher');
     });
+
+    //teacher routes
+    Route::post('/teacherRegistration', [TeacherController::class, 'Register']);
 
     Route::get('/subject', [SubjectController::class, 'View']);
 
@@ -120,7 +123,7 @@ Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/get-payments', [PaymentController::class, 'getPayments'])->name('get.payments');
 
     Route::post('/PrintStudentPayments', [PaymentController::class, 'PrintStudentPayments'])->name('StudentPaymentsPrint');
-    
+
     Route::get('/teacher-payments', [PaymentController::class, 'ViewTeachersPayments'])->name('AllTeacherPayments');
 
     Route::get('/get-Teacher-payments', [PaymentController::class, 'getTeachersPayments'])->name('get.teacherspayments');
@@ -147,6 +150,8 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
 
     Route::get('/add-questions/{quizid}', [QuizController::class, 'AddQuestions'])->name('add-questions');
 
+    Route::get('filter.students', [StudentController::class, 'filterStudents'])->name('filter.students');
+
     Route::get('/BatchStudents/{id}', [StudentController::class, 'BatchStudents']);
 
     Route::get('/ViewZoomLinks', [ClassController::class, 'ViewLinks']);
@@ -154,13 +159,12 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
     Route::get('/RemoveHomework/{id}', [ClassController::class, 'RemoveHomework']);
 
     Route::get('/endClass/{id}', [SubjectController::class, 'EndTheClass']);
-    
+
     Route::get('/ViewQuizes', [QuizController::class, 'viewQuizes']);
 
     Route::get('/quiz-submisions-view/{id}', [QuizController::class, 'StudentQuizResults']);
 
     Route::get('/notify-email/{id}/{stId}', [QuizController::class, 'SendNotifyEmail']);
-    
 });
 
 Route::middleware(['auth', 'Student'])->group(function () {
@@ -190,12 +194,11 @@ Route::middleware(['auth', 'Student'])->group(function () {
 
     Route::get('/viewmessages', [MessageController::class, 'ViewMessages']);
 
-    Route::post('/feedbacksave',[FeedbackController::class,'FeedbackSave']);
+    Route::post('/feedbacksave', [FeedbackController::class, 'FeedbackSave']);
 
-    Route::get('/feedbackview',function(){
+    Route::get('/feedbackview', function () {
         return view('Student.Feedback');
     });
-    
 });
 
 
