@@ -40,6 +40,12 @@
                                     </div>
                                 @endif
 
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+
                                 <!-- Validation Errors -->
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -166,7 +172,7 @@
                         batch_id: batchId
                     },
                     success: function(response) {
-                        
+
                         var tbody = $('#subject-mappings-tbody');
                         tbody.empty();
                         $.each(response, function(index, mapping) {

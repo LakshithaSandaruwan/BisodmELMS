@@ -51,6 +51,15 @@ class SubjectController extends Controller
             'Teacher' => 'required|string|max:255'
         ]);
 
+        $existingMapping = SubjectMapping::where('grade_id', $request->input('grade'))
+            ->where('subject_id', $request->input('subject'))
+            ->where('batchId', $request->input('batch'))
+            ->first();
+
+        if ($existingMapping) {
+            return redirect()->back()->with('error', 'The combination already exists!');
+        }
+
         $subjectmappings = new SubjectMapping();
         $subjectmappings->grade_id = $request->input('grade');
         $subjectmappings->subject_id = $request->input('subject');
@@ -97,11 +106,11 @@ class SubjectController extends Controller
             $batchDetail = SubjectMapping::where('batchId', $Class->batchId)
                 ->where('IsEnd', false)->get();
 
-                if ($batchDetail->count() == 0) {
-                    $batch = Batch::find($Class->batchId);
-                    $batch->IsStillEnrolling = false;
-                    $batch->save();
-                }
+            if ($batchDetail->count() == 0) {
+                $batch = Batch::find($Class->batchId);
+                $batch->IsStillEnrolling = false;
+                $batch->save();
+            }
 
             return redirect()->back()->with('success', 'Class ended successfully');
         } else {
