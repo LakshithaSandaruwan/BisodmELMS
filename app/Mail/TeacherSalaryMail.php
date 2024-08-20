@@ -2,13 +2,12 @@
 
 namespace App\Mail;
 
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class TeacherSalaryMail extends Mailable
 {
@@ -16,18 +15,16 @@ class TeacherSalaryMail extends Mailable
 
     protected $teacher;
     protected $salaryDetails;
-    protected $pdf;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($teacher, $salaryDetails, PDF $pdf)
+    public function __construct($teacher, $salaryDetails)
     {
         $this->teacher = $teacher;
         $this->salaryDetails = $salaryDetails;
-        $this->pdf = $pdf;
     }
 
     /**
@@ -61,7 +58,7 @@ class TeacherSalaryMail extends Mailable
      */
     public function build()
     {
-        $pdfContent = $this->pdf->loadView('pdf.salary', [
+        $pdfContent = PDF::loadView('pdf.salary', [
             'teacher' => $this->teacher,
             'salaryDetails' => $this->salaryDetails,
         ])->output();
@@ -72,3 +69,4 @@ class TeacherSalaryMail extends Mailable
                     ]);
     }
 }
+
