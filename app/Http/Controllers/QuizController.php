@@ -39,27 +39,27 @@ class QuizController extends Controller
     {
         $quiz = Quiz::where('id', $quizId)->first();
 
-        $subjectMappings = DB::table('subject_mappings')
-            ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
-            ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
-            ->join('teachers', 'subject_mappings.teacher_id', '=', 'teachers.id')
-            ->join('batches', 'subject_mappings.batchId', '=', 'batches.id')
-            ->select(
-                'subject_mappings.*',
-                'grades.Grade as grade_name',
-                'subjects.subject_name as subject_name',
-                'teachers.full_name as teacher_name',
-                'batches.Year as batch_name'
-            )
-            ->where('subject_mappings.id', $quiz->subject_id)
-            ->first();
+        // $subjectMappings = DB::table('subject_mappings')
+        //     ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
+        //     ->join('subjects', 'subject_mappings.subject_id', '=', 'subjects.id')
+        //     ->join('teachers', 'subject_mappings.teacher_id', '=', 'teachers.id')
+        //     ->join('batches', 'subject_mappings.batchId', '=', 'batches.id')
+        //     ->select(
+        //         'subject_mappings.*',
+        //         'grades.Grade as grade_name',
+        //         'subjects.subject_name as subject_name',
+        //         'teachers.full_name as teacher_name',
+        //         'batches.Year as batch_name'
+        //     )
+        //     ->where('subject_mappings.id', $quiz->subject_id)
+        //     ->first();
 
         $questions = Question::where('quiz_id', $quizId)
             ->with('answers')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('Teacher.CreateQuizView', compact('quiz', 'subjectMappings', 'questions'));
+        return view('Teacher.CreateQuizView', compact('quiz', 'questions'));
     }
 
     public function saveQuestion(Request $request)
@@ -84,7 +84,7 @@ class QuizController extends Controller
             $questionAnswer->answer = $answer;
             $questionAnswer->is_correct = ($key + 1 == $request->input('correct_answer'));
             $questionAnswer->save();
-
+            
             $answers[] = $questionAnswer;
         }
 
