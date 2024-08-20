@@ -110,6 +110,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::get('/filter-students', [StudentController::class, 'filterStudents'])->name('filter.students');
 
+    Route::get('/filter-studentsAll', [StudentController::class, 'filterStudentsAll'])->name('filter.studentsAll');
+
     Route::get('/deleteGrade/{id}', [GradeController::class, 'delete'])->name('delete.grade');
 
     Route::post('/updateGrade/{id}', [GradeController::class, 'update'])->name('update.grade');

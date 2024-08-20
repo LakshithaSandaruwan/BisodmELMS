@@ -71,10 +71,19 @@ class StudentController extends Controller
     public function filterStudents(Request $request){
         $query = $request->get('query');
         $subid = $request->get('sid');
-        // $teachers = Student::where('FullName', 'LIKE', "%{$query}%")->get();
+        
         $students = Enrollment::where('subject_id', $subid)
         ->where('students.FullName','LIKE', "%{$query}%")
         ->join('students', 'enrollments.student_id', '=', 'students.id')
+        ->get();
+
+        return response()->json($students);
+    }
+
+    public function filterStudentsAll(Request $request){
+        $query = $request->get('query');
+        
+        $students = Student::where('FullName','LIKE', "%{$query}%")
         ->get();
 
         return response()->json($students);

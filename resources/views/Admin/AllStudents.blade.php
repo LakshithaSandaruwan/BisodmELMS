@@ -73,14 +73,14 @@
                 var query = $(this).val();
 
                 $.ajax({
-                    url: "{{ route('filter.students') }}", // Your route to fetch filtered teachers
+                    url: "{{ route('filter.studentsAll') }}", 
                     type: "GET",
                     data: {
                         'query': query
                     },
                     success: function(data) {
                         console.log(data);
-                        $('#teacher-table-body').html(''); // Clear the existing table body
+                        $('#teacher-table-body').html(''); 
                         $.each(data, function(key, student) {
                             $('#teacher-table-body').append(
                                 '<tr>' +
