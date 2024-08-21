@@ -101,7 +101,7 @@ class HomeController extends Controller
             $teacherId = Teacher::where('user_id', $userId)->pluck('id')->first();
 
             // Get subject mappings for the logged-in teacher
-            $subjectMappings = SubjectMapping::where('teacher_id', $teacherId)->get();
+            $subjectMappings = SubjectMapping::where('teacher_id', $teacherId)->where('IsEnd',false)->get();
 
             // Initialize an array to hold subject names and enrollment counts
             $enrollments = [];

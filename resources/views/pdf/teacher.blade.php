@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students PDF</title>
+    <title>Teacher PDF</title>
     <style>
         table {
             width: 100%;
@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <h1>Student List</h1>
+    <h1>Teacher List</h1>
     <table>
         <thead>
             <tr>

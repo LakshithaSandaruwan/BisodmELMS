@@ -32,6 +32,18 @@ class SubjectController extends Controller
         return view('Admin.NewSubject', compact('subjects'));
     }
 
+    public function DeleteSubject($id){
+        $subject= Subject::find($id);
+        if($subject){
+            $subject->delete();
+            return redirect()->back()->with('success','Subject deleted successfully.');
+        }else{
+            return redirect()->back()->with('error','Subject not found');
+        }
+    }
+
+    
+
     public function SubjectMapping()
     {
         $subjects = Subject::all();
@@ -50,7 +62,7 @@ class SubjectController extends Controller
             'subject' => 'required|string|max:255',
             'Teacher' => 'required|string|max:255'
         ]);
-
+        // Exist subjet view message 
         $existingMapping = SubjectMapping::where('grade_id', $request->input('grade'))
             ->where('subject_id', $request->input('subject'))
             ->where('batchId', $request->input('batch'))
@@ -59,7 +71,7 @@ class SubjectController extends Controller
         if ($existingMapping) {
             return redirect()->back()->with('error', 'The combination already exists!');
         }
-
+        // Exist subject view message end
         $subjectmappings = new SubjectMapping();
         $subjectmappings->grade_id = $request->input('grade');
         $subjectmappings->subject_id = $request->input('subject');

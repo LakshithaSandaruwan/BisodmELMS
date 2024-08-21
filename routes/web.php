@@ -81,6 +81,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::post('/savesubject', [SubjectController::class, 'Save']);
 
+    Route::get('/deletesubject/{id}',[SubjectController::class,'DeleteSubject']);
+
     Route::get('/grades', [GradeController::class, 'View']);
 
     Route::post('/savegrade', [GradeController::class, 'Save']);

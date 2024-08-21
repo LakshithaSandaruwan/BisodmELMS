@@ -13,6 +13,14 @@ class GradeController extends Controller
         $request->validate([
             'gradename' => 'required|string|max:255'
         ]);
+        // subject alredy add message part
+        $existgrade=Grade::where('Grade',$request->input('gradename'))
+        ->first();
+
+        if($existgrade){
+            return redirect()->back()->with('error','The Subjcet alredy added!');
+        }
+        // subject alredy add message part end
 
         $grades = new Grade();
         $grades->Grade = $request->input('gradename');
