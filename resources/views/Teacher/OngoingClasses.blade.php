@@ -105,7 +105,7 @@
                                                 <td> <span
                                                         class="d-inline-block align-middle">{{ $class->subject_name }}</span>
                                                 </td>
-                                                <td><a href="/endClass/{{$class->id}}">End the Class</a></td>
+                                                <td><a href="/endClass/{{ $class->id }}">End the Class</a></td>
                                                 <td class="text-end">
                                                     <div class="drodown">
                                                         <a data-bs-toggle="dropdown" href="#" class="btn p-1"
@@ -113,7 +113,8 @@
                                                             <i class="fa fa-bars" aria-hidden="true"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end" style="">
-                                                            <a href="/BatchStudents/{{ $class->id }}" class="dropdown-item">View Students</a>
+                                                            <a href="/BatchStudents/{{ $class->id }}"
+                                                                class="dropdown-item">View Students</a>
                                                             <a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#homeworkmodel" class="dropdown-item"
                                                                 data-subject-id="{{ $class->id }}">Add Homeworks</a>
@@ -126,6 +127,11 @@
                                                                 data-bs-target="#zoomlink" class="dropdown-item"
                                                                 data-link-id="{{ $class->id }}">Add Zoom classes
                                                                 links</a>
+
+                                                            <a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#materials" class="dropdown-item"
+                                                                data-subject-id="{{ $class->id }}">Study
+                                                                Materials</a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -160,6 +166,34 @@
                                     class="text-danger">*</span></label>
                             <input type="date" name="deadline" class="form-control" id="deadline"
                                 aria-describedby="deadline" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- study materials --}}
+        <div class="modal fade" id="materials" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Study Materials</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <form action="saveMaterials" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" id="subject-id" name="subject_id">
+                            <label for="file" class="form-label">Select the file (pdf, docx, ppt)<span
+                                    class="text-danger">*</span></label>
+                            <input type="file" name="file" class="form-control" id="file"
+                                aria-describedby="file" required accept=".pdf,.docx,.ppt">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -291,6 +325,19 @@
                 var subjectId = button.getAttribute(
                     'data-quiz-id');
                 var modal = homeworkModal;
+                modal.querySelector('#subject-id').value = subjectId;
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var matmodal = document.getElementById('materials');
+            matmodal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var subjectId = button.getAttribute(
+                    'data-subject-id');
+                var modal = matmodal;
                 modal.querySelector('#subject-id').value = subjectId;
             });
         });

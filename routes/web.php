@@ -167,6 +167,9 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
     Route::get('/quiz-submisions-view/{id}', [QuizController::class, 'StudentQuizResults']);
 
     Route::get('/notify-email/{id}/{stId}', [QuizController::class, 'SendNotifyEmail']);
+
+    Route::post('/saveMaterials', [QuizController::class, 'SubmitQuiz']);
+    
 });
 
 Route::middleware(['auth', 'Student'])->group(function () {
