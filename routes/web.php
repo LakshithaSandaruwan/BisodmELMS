@@ -16,6 +16,7 @@ use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\StudyMaterialController;
 use App\Http\Controllers\WelcomeController;
 use App\Models\StudentPayment;
 use App\Models\SubjectMapping;
@@ -168,7 +169,7 @@ Route::middleware(['auth', 'Teacher'])->group(function () {
 
     Route::get('/notify-email/{id}/{stId}', [QuizController::class, 'SendNotifyEmail']);
 
-    Route::post('/saveMaterials', [QuizController::class, 'SubmitQuiz']);
+    Route::post('/saveMaterials', [StudyMaterialController::class, 'Save']);
     
 });
 
@@ -204,6 +205,9 @@ Route::middleware(['auth', 'Student'])->group(function () {
     Route::get('/feedbackview', function () {
         return view('Student.Feedback');
     });
+
+    Route::get('/subject-materials/{id}', [StudyMaterialController::class, 'ViewMaterials']);
+    
 });
 
 

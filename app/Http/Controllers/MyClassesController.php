@@ -58,8 +58,8 @@ class MyClassesController extends Controller
                 'zl.StartTime',
                 'zl.EndTime',
                 'teachers.full_name',
-                'grades.Grade'
-                
+                'grades.Grade',
+                'sm.id as subId'
             )
             ->where('e.student_id', $studentId)
             ->get();

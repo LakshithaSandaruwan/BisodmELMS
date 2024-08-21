@@ -31,13 +31,22 @@
                 @endforeach
             ]);
 
+            // Check if there is any valid data
+            if (data.getNumberOfRows() === 0) {
+                // Add a default empty row
+                data.addRow(['No Data', 0]);
+            }
+
             var options = {
                 title: 'Academic Performance',
                 hAxis: {
                     title: 'Subjects'
                 },
                 vAxis: {
-                    title: 'Scores'
+                    title: 'Scores',
+                    viewWindow: {
+                        min: 0
+                    }
                 },
                 colors: ['#1b9e77']
             };
@@ -103,7 +112,7 @@
                             <i class="fa fa-book fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Subjects Enrolled</p>
-                                <h6 class="mb-0">{{$enrollcount}}</h6>
+                                <h6 class="mb-0">{{ $enrollcount }}</h6>
                             </div>
                         </div>
                     </div>

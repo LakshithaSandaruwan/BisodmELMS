@@ -77,7 +77,7 @@ class ClassController extends Controller
             ->join('grades', 'subject_mappings.grade_id', '=', 'grades.id')
             ->join('batches', 'subject_mappings.batchId', '=', 'batches.id')
             ->where('subject_mappings.teacher_id', $teacherId)
-            ->where('homework.deadline', '>=', $currentDate)
+            // ->where('homework.deadline', '>=', $currentDate)
             ->withCount('submissions') // Add this to get the count of submissions
             ->get();
 
