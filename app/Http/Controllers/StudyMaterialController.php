@@ -20,6 +20,7 @@ class StudyMaterialController extends Controller
 
             $materials = new StudyMaterial();
             $materials->File_Path = $filePath;
+            $materials->Name = $request->name;
             $materials->subject_id = $request->input('subject_id');
             $materials->save();
 

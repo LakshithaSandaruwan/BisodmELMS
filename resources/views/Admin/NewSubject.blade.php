@@ -14,7 +14,7 @@
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        
+
         <div class="sidebar pe-4 pb-3">
             @include('Admin.Include.Sidebar')
         </div>
@@ -79,12 +79,14 @@
                                 <tbody>
                                     @foreach ($subjects as $subject)
                                         <tr>
-                                            <th scope="row">{{$subject->id}}</th>
-                                            <td>{{$subject->subject_name}}</td>
-                                            <td><a href="/deletesubject/{{$subject->id}}">Delete</a>
-                                            / <a href="#" class="edit-subject-btn" data-id="{{ $subject->id }}"
-                                            data-name="{{ $subject->subject_name}}">Update</a>
-
+                                            <th scope="row">{{ $subject->id }}</th>
+                                            <td>{{ $subject->subject_name }}</td>
+                                            <td><a href="/deletesubject/{{ $subject->id }}">Delete</a>
+                                                /
+                                                <a href="#" class="edit-subject-btn" data-id="{{$subject->id}}"
+                                                    data-subject_name="{{$subject->subject_name}}" data-bs-toggle="modal"
+                                                    data-bs-target="#editSubjectModal">Update</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -106,6 +108,7 @@
                     <form id="editSubjectForm" method="POST">
                         @csrf
                         <div class="modal-body">
+                            <input type="hidden" id="edit-subject-id" name="id">
                             <div class="mb-3">
                                 <label for="edit-subject" class="form-label">Subject</label>
                                 <input type="text" class="form-control" id="edit-subject" name="subject" required>
@@ -122,28 +125,14 @@
 
         <script>
             $(document).ready(function() {
-                // Handle the click event for the edit button
-                $('body').on('click', '.edit-subject-btn', function() {
+                $('.edit-subject-btn').on('click', function() {
+                    // Get data attributes
                     var subjectId = $(this).data('id');
-                    var subjectName = $(this).data('name');
+                    var subjectName = $(this).data('subject_name');
 
-                   
-                    // Populate the modal form with the current grade data
+                    // Set modal fields
+                    $('#edit-subject-id').val(subjectId);
                     $('#edit-subject').val(subjectName);
-                    $('#editsubjectForm').attr('action', '/updatesubject/' + subjectId);
-
-                    // Show the modal
-                    $('#editsubjectModal').modal('show');
-                    console.log(subjectName);
-                });
-
-                // Handle the delete confirmation
-                $('body').on('click', '.delete-grade-btn', function(event) {
-                    event.preventDefault();
-                    var deleteUrl = $(this).attr('href');
-                    if (confirm('Are you sure you want to delete this grade?')) {
-                        window.location.href = deleteUrl;
-                    }
                 });
             });
         </script>

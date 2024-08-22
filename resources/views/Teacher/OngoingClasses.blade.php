@@ -194,6 +194,10 @@
                                     class="text-danger">*</span></label>
                             <input type="file" name="file" class="form-control" id="file"
                                 aria-describedby="file" required accept=".pdf,.docx,.ppt">
+
+                            <label for="name" class="form-label mt-2">Name<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="name" class="form-control" id="name">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

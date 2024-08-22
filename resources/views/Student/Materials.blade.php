@@ -31,6 +31,7 @@
                                     <table class="table mb-0">
                                         <thead class="small text-uppercase bg-body text-muted">
                                             <tr>
+                                                <th>Name</th>
                                                 <th>Files</th>
                                             </tr>
                                         </thead>
@@ -38,9 +39,10 @@
                                             @foreach ($studyMaterials as $studyMaterial)
                                                 <tr class="align-middle">
 
+                                                    <td>{{$studyMaterial->Name}}</td>
                                                     <td><a href="{{ asset('storage/' . $studyMaterial->File_Path) }}"
                                                             download="{{ basename($studyMaterial->File_Path) }}">
-                                                             {{ basename($studyMaterial->File_Path) }}
+                                                             Download
                                                         </a></td>
 
                                                 </tr>
