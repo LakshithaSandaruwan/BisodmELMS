@@ -105,10 +105,10 @@
                         <h5 class="modal-title" id="editSubjectModalLabel">Edit Subject</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="editSubjectForm" method="POST">
+                    <form id="editSubjectForm" action="subjectedit" method="POST">
                         @csrf
                         <div class="modal-body">
-                            <input type="hidden" id="edit-subject-id" name="id">
+                            <input type="hidden" id="edit-subject-id" name="Subid">
                             <div class="mb-3">
                                 <label for="edit-subject" class="form-label">Subject</label>
                                 <input type="text" class="form-control" id="edit-subject" name="subject" required>

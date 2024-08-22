@@ -42,6 +42,22 @@ class SubjectController extends Controller
         }
     }
 
+    public function SubjectEdit(Request $request){
+
+        $request->validate([
+            'subject'=>'required|string|max:255'
+        ]);
+
+        $subject = Subject::find($request->Subid);
+        if($subject){
+            $subject->subject_name = $request->input('subject');
+            $subject->save();
+            return redirect()->back()->with('success','Subject update succesfully');
+        }else{
+            return redirect()->back()->with('error','Subject not found');
+        }
+    }
+
     
 
     public function SubjectMapping()
