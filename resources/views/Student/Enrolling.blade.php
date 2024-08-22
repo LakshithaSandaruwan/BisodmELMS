@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Enrollment</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,7 +30,7 @@
                 <div class="row mt-5">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Enrolment</h6>
+                            <h6 class="mb-4">Enrollment</h6>
                             <form action="saveenrolment" method="post">
                                 @csrf
                                 <!-- Success Message -->

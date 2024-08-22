@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>All Students</title>
+    <title>Access Classes</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -26,7 +26,7 @@
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Class links</h6>
                             <input type="text" id="search-studnts" class="form-control mb-4"
-                                placeholder="Search by Teacher Name">
+                                placeholder="Search by Subject Name">
                         
                             <table class="table mb-0">
                                 <thead class="small text-uppercase bg-body text-muted">

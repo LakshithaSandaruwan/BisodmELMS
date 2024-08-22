@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Ongoing Classes</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -186,18 +186,22 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
                     </div>
-                    <form action="saveMaterials" method="POST" enctype="multipart/form-data">
+                    <!-- multipart/form-data use file transfering -->
+                    <form action="saveMaterials" method="POST" enctype="multipart/form-data"> 
                         @csrf
                         <div class="modal-body">
                             <input type="hidden" id="subject-id" name="subject_id">
-                            <label for="file" class="form-label">Select the file (pdf, docx, ppt)<span
-                                    class="text-danger">*</span></label>
-                            <input type="file" name="file" class="form-control" id="file"
-                                aria-describedby="file" required accept=".pdf,.docx,.ppt">
 
                             <label for="name" class="form-label mt-2">Name<span
                                     class="text-danger">*</span></label>
                             <input type="text" name="name" class="form-control" id="name">
+
+                            <label for="file" class="form-label mt-2">Select the file (pdf, docx, ppt)<span
+                                    class="text-danger">*</span></label>
+                            <input type="file" name="file" class="form-control" id="file"
+                                aria-describedby="file" required accept=".pdf,.docx,.ppt">
+
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

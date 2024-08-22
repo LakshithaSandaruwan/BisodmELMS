@@ -26,7 +26,7 @@
                 <div class="row mt-5">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Subject Details</h6>
+                            <h6 class="mb-4">Grade Details</h6>
                             <form action="savegrade" method="post">
                                 @csrf
                                 <!-- Success Message -->

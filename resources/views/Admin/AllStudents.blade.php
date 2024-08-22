@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>All Students</title>
+    <title>Students</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -26,7 +26,7 @@
                             <h6 class="mb-4">Students</h6>
                             <a href="/students/pdf" class="btn btn-success mb-3">Print</a>
                             <input type="text" id="search-studnts" class="form-control mb-4"
-                                placeholder="Search by Teacher Name">
+                                placeholder="Search by Student Name">
                             <table class="table">
                                 <thead>
                                     <tr>

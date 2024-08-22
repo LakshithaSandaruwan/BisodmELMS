@@ -15,9 +15,9 @@
     </div>
     <div class="navbar-nav w-100">
         <a href="/home" class="nav-item nav-link {{ Request::is('home') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-        <a href="/ongoingclasses" class="nav-item nav-link {{ Request::is('ongoingclasses') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Ongoing Classes</a>
-        <a href="/homeworks" class="nav-item nav-link {{ Request::is('homeworks') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Homeworks</a>
-        <a href="/ViewQuizes" class="nav-item nav-link {{ Request::is('ViewQuizes') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Quizes</a>
-        <a href="/ViewZoomLinks" class="nav-item nav-link {{ Request::is('ViewZoomLinks') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Access Classes</a>
+        <a href="/ongoingclasses" class="nav-item nav-link {{ Request::is('ongoingclasses') ? 'active' : '' }}"><i class="fa fa-chalkboard-teacher"></i>Ongoing Classes</a>
+        <a href="/homeworks" class="nav-item nav-link {{ Request::is('homeworks') ? 'active' : '' }}"><i class="fa fa-book"></i>Homeworks</a>
+        <a href="/ViewQuizes" class="nav-item nav-link {{ Request::is('ViewQuizes') ? 'active' : '' }}"><i class="fa fa-check"></i>Quizes</a>
+        <a href="/ViewZoomLinks" class="nav-item nav-link {{ Request::is('ViewZoomLinks') ? 'active' : '' }}"><i class="fa fa-sign-in-alt"></i>Access Classes</a>
     </div>
 </nav>

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Student Dashboard</title>
+    <title>My Classes</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">

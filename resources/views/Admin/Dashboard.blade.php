@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Admin Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -146,7 +146,7 @@
             @include('Admin.Include.Navbar')
             <form action="{{ route('admin.backup') }}" method="get">
                 @csrf
-                <button type="submit" class="btn btn-primary">Create Backup</button>
+                
             </form>
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">

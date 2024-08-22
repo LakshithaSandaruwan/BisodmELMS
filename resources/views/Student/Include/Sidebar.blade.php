@@ -16,14 +16,14 @@
     <div class="navbar-nav w-100">
         <a href="/home" class="nav-item nav-link {{ Request::is('home') ? 'active' : '' }}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
         
-        <a href="/enrollment" class="nav-item nav-link {{ Request::is('enrollment') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Enrollements</a>
+        <a href="/enrollment" class="nav-item nav-link {{ Request::is('enrollment') ? 'active' : '' }}"><i class="fa fa-credit-card"></i>Enrollments</a>
 
-        <a href="/myhomeworks" class="nav-item nav-link {{ Request::is('myhomeworks') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Homeworks</a>
+        <a href="/myhomeworks" class="nav-item nav-link {{ Request::is('myhomeworks') ? 'active' : '' }}"><i class="fa fa-book"></i>Homeworks</a>
 
-        <a href="/take-quiz" class="nav-item nav-link {{ Request::is('take-quiz') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Quizes</a>
+        <a href="/take-quiz" class="nav-item nav-link {{ Request::is('take-quiz') ? 'active' : '' }}"><i class="fa fa-check"></i>Quizes</a>
 
-        <a href="/MyCalander" class="nav-item nav-link {{ Request::is('MyCalander') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>My Classes</a>
+        <a href="/MyCalander" class="nav-item nav-link {{ Request::is('MyCalander') ? 'active' : '' }}"><i class="fa fa-calendar"></i>My Classes</a>
        
-        <a href="/feedbackview" class="nav-item nav-link {{ Request::is('feedbackview') ? 'active' : '' }}"><i class="fa fa-th me-2"></i>Feedback</a>
+        <a href="/feedbackview" class="nav-item nav-link {{ Request::is('feedbackview') ? 'active' : '' }}"><i class="fa fa-pencil-alt"></i>Feedback</a>
     </div>
 </nav>

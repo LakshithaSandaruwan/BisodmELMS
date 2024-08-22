@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>Class Mapping</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,7 +30,7 @@
                 <div class="row mt-5">
                     <div class="col-sm-12 col-xl-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Subjects Mappings</h6>
+                            <h6 class="mb-4">Class Mappings</h6>
                             <form action="subjectmapping" method="post">
                                 @csrf
                                 <!-- Success Message -->
