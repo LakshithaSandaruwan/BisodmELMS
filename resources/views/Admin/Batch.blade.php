@@ -8,16 +8,13 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     @include('CDNs.AdminCDN')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
-        <div id="spinner"
-            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div>
+        
 
         <div class="sidebar pe-4 pb-3">
             @include('Admin.Include.Sidebar')
@@ -34,20 +31,26 @@
                                 @csrf
                                 <!-- Success Message -->
                                 @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
+                                @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
                                 @endif
 
                                 <!-- Validation Errors -->
                                 @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                                 @endif
 
                                 <div class="mb-3">
@@ -87,20 +90,28 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($batchs as $batch)
-                                        <tr>
-                                            <th scope="row">{{ $batch->id }}</th>
-                                            <td>{{ $batch->Year }}</td>
-                                            <td>{{ $batch->StartDate }}</td>
-                                            <td>{{ $batch->EndDate }}</td>
-                                            <td>
-                                                @if ($batch->IsStillEnrolling)
-                                                    <span class="badge bg-success">OnGoing</span>
-                                                @else
-                                                    <span class="badge bg-danger">Ended</span>
-                                                @endif
-                                            </td>
-                                            
-                                        </tr>
+                                    <tr>
+                                        <th scope="row">{{ $batch->id }}</th>
+                                        <td>{{ $batch->Year }}</td>
+                                        <td>{{ $batch->StartDate }}</td>
+                                        <td>{{ $batch->EndDate }}</td>
+
+                                        <td>
+                                            @if ($batch->IsStillEnrolling)
+                                            <span class="badge bg-success">OnGoing</span>
+                                            @else
+                                            <span class="badge bg-danger">Ended</span>
+                                            @endif
+                                        </td>
+
+                                        <td>
+                                            <a href="#" class="edit-batch-btn" data-id="{{$batch->id}}"
+                                                data-batch_name="{{$batch->Year}}" data-start_date="{{$batch->StartDate}}" 
+                                                data-end_date="{{$batch->EndDate}}" data-bs-toggle="modal"
+                                                data-bs-target="#editbatchModal">Update</a>
+                                        </td>
+
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -109,6 +120,63 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="editbatchModal" tabindex="-1" aria-labelledby="editBatchModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editBatchModalLabel">Edit Batch</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="editBatchForm" action="batchedit" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" id="edit-batch-id" name="batchid">
+                            <div class="mb-3">
+                                <label for="edit-batch" class="form-label">Batch</label>
+                                <input type="text" class="form-control" id="edit-batch" name="batch" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="edit-bacthstartdate" class="form-label">Batch Start Date</label>
+                                <input type="date" class="form-control" id="edit-batchstartdate" name="startdate" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="edit-bacthenddate" class="form-label">Batch End Date</label>
+                                <input type="date" class="form-control" id="edit-batchenddate" name="enddate" required>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('.edit-batch-btn').on('click', function() {
+                    // Get data attributes
+                    var batchId = $(this).data('id');
+                    var batchName = $(this).data('batch_name');
+                    var batchstartdate = $(this).data('start_date');
+                    var batchenddate = $(this).data('end_date');
+
+                    console.log(batchName);
+
+                    // Set modal fields
+                    $('#edit-batch-id').val(batchId);
+                    $('#edit-batch').val(batchName);
+                    $('#edit-batchstartdate').val(batchstartdate);
+                    $('#edit-batchenddate').val(batchenddate);
+                });
+            });
+        </script>
 
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>

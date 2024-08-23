@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Validation\Rules\Unique;
 
 class TeacherController extends Controller
 {
@@ -34,6 +35,7 @@ class TeacherController extends Controller
             'T_district' => 'required|string|max:255',
             'T_province' => 'required|string|max:255',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'T_NIC'=> 'required|unique:teachers,nic'
         ]);
 
         $randomPassword = Str::random(12);
@@ -154,7 +156,9 @@ class TeacherController extends Controller
     public function filterTeachers(Request $request)
     {
         $query = $request->get('query');
-        $teachers = Teacher::where('full_name', 'LIKE', "%{$query}%")->get();
+        $teachers = Teacher::where('full_name', 'LIKE', "%{$query}%")
+        ->orWhere('nic','LIKE',"%{$query}%")
+        ->get();
 
         return response()->json($teachers);
     }

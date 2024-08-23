@@ -193,7 +193,9 @@ class PaymentController extends Controller
                 'enrollments.Next_Payment_Date',
                 'grades.Grade'
             )
-            ->orderBy('created_at', 'DESC')->whereBetween('student_payments.payment_date', [$startDate, $endDate])->get();
+            ->orderBy('created_at', 'DESC')
+            ->whereBetween('student_payments.payment_date', [$startDate, $endDate])
+            ->get();
 
         $pdf = PDF::loadView('pdf.studentpayment', compact('payments', 'startDate', 'endDate'));
 

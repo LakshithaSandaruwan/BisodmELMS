@@ -99,6 +99,8 @@ Route::middleware(['auth', 'Admin'])->group(function () {
 
     Route::post('/savebatch', [BatchController::class, 'Save']);
 
+    Route::post('/batchedit',[BatchController::class, 'BatchEdit']);
+
     Route::get('/teacherStudent/{id}', [TeacherController::class, 'showTeacherStudentCount']);
 
     Route::get('/allteachers', [TeacherController::class, 'AllTeachers'])->name('allteachers');

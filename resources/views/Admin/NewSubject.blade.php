@@ -30,26 +30,26 @@
                                 @csrf
                                 <!-- Success Message -->
                                 @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
                                 @endif
 
                                 @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
                                 @endif
 
                                 <!-- Validation Errors -->
                                 @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                                 @endif
 
                                 <div class="mb-3">
@@ -78,16 +78,17 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($subjects as $subject)
-                                        <tr>
-                                            <th scope="row">{{ $subject->id }}</th>
-                                            <td>{{ $subject->subject_name }}</td>
-                                            <td><a href="/deletesubject/{{ $subject->id }}">Delete</a>
-                                                /
-                                                <a href="#" class="edit-subject-btn" data-id="{{$subject->id}}"
-                                                    data-subject_name="{{$subject->subject_name}}" data-bs-toggle="modal"
-                                                    data-bs-target="#editSubjectModal">Update</a>
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <th scope="row">{{ $subject->id }}</th>
+                                        <td>{{ $subject->subject_name }}</td>
+                                        <td>
+                                            <a href="#" class="edit-subject-btn" data-id="{{$subject->id}}"
+                                                data-subject_name="{{$subject->subject_name}}" data-bs-toggle="modal"
+                                                data-bs-target="#editSubjectModal">Update</a>
+                                            /
+                                            <a href="/deletesubject/{{ $subject->id }}" class="delete-subject-btn">Delete</a>
+                                        </td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -133,6 +134,14 @@
                     // Set modal fields
                     $('#edit-subject-id').val(subjectId);
                     $('#edit-subject').val(subjectName);
+                });
+                    // Handle the delete confirmation
+                $('body').on('click', '.delete-subject-btn', function(event) {
+                    event.preventDefault();
+                    var deleteUrl = $(this).attr('href');
+                    if (confirm('Are you sure you want to delete this Subject?')) {
+                        window.location.href = deleteUrl;
+                    }
                 });
             });
         </script>

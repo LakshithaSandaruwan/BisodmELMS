@@ -33,7 +33,7 @@
                             <h6 class="mb-4">Teachers</h6>
                             <a href="/teachers/pdf" class="btn btn-success mb-3">Print</a>
                             <input type="text" id="search-teacher" class="form-control mb-4"
-                                placeholder="Search by Teacher Name">
+                                placeholder="Search by Teacher Name or Nic">
                             <table class="table">
                                 <thead>
                                     <tr>
