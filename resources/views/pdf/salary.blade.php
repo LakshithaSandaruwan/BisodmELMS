@@ -100,7 +100,8 @@
         <table class="empDetail">
             <tr height="100px" style='background-color: #c2d69b'>
                 <td colspan='4'>
-                    <img height="90px" src='https://organisationmedia.toggleflow.com/demo/logo.png' />
+                    <img height="90px" src='img/logo.jpg' />
+                    
                 </td>
                 <td colspan='4' class="companyName"> BisodmELMS.</td>
             </tr>
@@ -109,7 +110,7 @@
                     Name -
                 </th>
                 <td>
-                    {{ $teacher->name }}
+                    {{ $teacher->full_name }}
                 </td>
                 <td></td>
             </tr>
